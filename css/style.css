@@ -1,0 +1,257 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Playfair Display', serif;
+}
+
+header{
+	font-family: 'Abril Fatface', cursive;
+}
+
+input, select{
+    width: 100%;
+    border-radius:5px;
+}
+.container{
+	text-align: center
+}
+
+#genderBox{
+    height: 30px;  
+}
+#sourceBar{
+    clear: both;
+    margin-top:1px;
+    height: 30px;
+}
+#showNews{
+    margin: 0 auto;
+    margin-top: 10px;
+    font-family: 'Abril Fatface', cursive;
+}
+
+.articleContainer{
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.input-field{
+    margin: 0 auto;
+}
+/*dynamic divs*/
+
+a {
+   color: black;
+}
+.card-image{
+    width: 286px;
+    height: 180px;
+}
+
+.flip-containerL, .flip-containerR{
+    perspective: 1000px;
+    width: 300px;
+    height: 480px;
+}
+
+#sourceTag{
+    font-weight: 900;
+
+}
+.flip-containerL.hover .flipper{
+    transform: rotateY(180deg);
+}
+
+.flip-containerR.hover .flipper{
+    transform: rotateY(180deg);
+}
+
+.front, .back {
+    width: 100%;
+    height: 460px;
+    
+}
+.flipper {
+    height: auto;
+    transition: 0.6s;
+    transform-style: preserve-3d;
+    position: relative;
+
+}
+
+.front, .back {
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow-y:auto;
+}
+
+.front{
+    z-index:2;
+    transform: rotateY(0deg);
+    background: white;
+}
+
+.back {
+    transform: rotateY(180deg);
+    
+}
+
+.card-content{
+    overflow: scroll;
+    margin-bottom: 5px;
+}
+
+.card-content h3{
+    font-size: 18px;
+    text-align: left;
+}
+
+.card-content p, h4{
+    font-size: 13px;
+    text-align: left;
+}
+
+.card-content h4{
+    color:grey;
+}
+
+.otherArticles h3{
+    font-size: 16px;
+    text-decoration: underline;
+}
+
+/*buttons*/
+#newSearchButton,#chartButton{
+    margin: auto;
+    background-color: purple;
+}
+
+
+.btnBox{
+    text-align: center;
+}
+
+}
+/*end*/
+/*chart*/
+
+.chartContainer{
+    height: 500px;
+    overflow: auto;
+    text-align: center;
+}
+
+/*#myChart{
+    width: 80%;
+    height: 250px !important;
+}*/
+
+.chartContainer p{
+    width: 100%;
+    height: 100px;
+}
+
+.canvasjs-chart-canvas, #myChart{
+    border-radius: 5px;
+    height: 400px !important;
+    margin: auto;
+
+}
+
+
+/* =================== START MODAL CSS =================== */
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    max-height: 100%;
+    height: 100%;
+    top: 0 !important;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 100px;
+}
+
+<!--
+/* Modal Content */
+
+-->.modal-content-1 {
+    background-color: #fefefe;
+    margin: 70px auto;
+    padding: 20px;
+    width: 70%;
+    height: 400px;
+}
+
+<!--
+/* Modal Content */
+
+-->.modal-content-2 {
+    background-color: #fefefe;
+    margin: 70px auto;
+    padding: 5px;
+    width: 60%;
+    height: 500px;
+}
+
+
+/* The Close Button */
+
+.close,
+.optionalClose {
+    color: #000;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    padding: 0 0 0 5px;
+    margin: 0 auto;
+    /*  margin-top: 10px; */
+    font-family: 'Abril Fatface', cursive;
+}
+
+.modalCont {
+    width: 100%;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+
+.close:hover,
+.close:focus,
+.optionalClose:hover,
+.optionalClose:focus {
+    /* color: #000; */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+/* =================== END MODAL CSS ========================= */
+
+/*------------------------------------------------------------------------------*/
+footer {
+    clear: both;
+    font-family: 'Abril Fatface', cursive;
+	left: 0;
+	bottom: 0;
+	margin: 0;
+	width: 100;
+	padding: 3em;
+	text-align: center;
+	font-size: 0.8em;
+}
+/* Sticky Footer*/
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.wrapper {
+  min-height: 100%;
+  margin-bottom: -50px;
+}
+footer,
+.push {
+  height: 50px;
+}
+/*--------------*/
