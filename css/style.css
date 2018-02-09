@@ -185,10 +185,11 @@ input, select{
 .card-likes{
     font-size: 13px;
     text-align: center;
-    color:  #3b5998;
     line-height: 13px;
-    margin:5px;
+    margin-top: 5px !important;
+    color:  #3b5998 !important;
 }
+
 
 .secondLine{
     color:grey;
