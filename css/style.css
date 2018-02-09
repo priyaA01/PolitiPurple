@@ -45,13 +45,11 @@ header{
     padding-bottom: 5px;
 }
 
-.leftArticle {
-    border-right: 1px solid #301D6E;
+/**/
+h2{
+    font-size: 24px;
 }
-
-.rightArticle {
-    border-left: 1px solid #301D6E; 
-}
+/**/
 
 input, select{
     width: 100%;
@@ -96,9 +94,14 @@ input, select{
 /*body components*/
 
 .toggle{
+    position:absolute;
+    right:30%;
+    bottom:0;
     font-size: 13px;
     line-height: 13px !important;
     padding: 5px;
+    background-color: #9C90C1 !important;
+
 }
 .articleContainer{
     margin-top: 50px;
@@ -110,9 +113,7 @@ input, select{
 }
 /*dynamic divs*/
 
-a {
-   color: black;
-}
+
 .card-image{
     width: 286px;
     height: 180px;
@@ -169,20 +170,38 @@ a {
 
 .card-content{
     overflow: auto;
-    margin-bottom: 5px;
+    padding:5px;
 }
 
-.card-content h3{
+.card-text{
+    height: 40px;
+}
+
+.card-title{
     font-size: 18px;
     text-align: left;
+    height: 64px;
+    margin-top: 15px;
 }
 
-.card-content p, h4{
+.card-title a {
+   color: black;
+}
+
+.card-text, .secondLine{
     font-size: 13px;
     text-align: left;
 }
 
-.card-content h4{
+.card-likes{
+    font-size: 13px;
+    text-align: center;
+    color:  #3b5998;
+    line-height: 13px;
+    padding:5px;
+}
+
+.secondLine{
     color:grey;
 }
 
@@ -201,10 +220,6 @@ a {
     background-color: #6F6FAC !important;
 }
 
-.toggle {
-    background-color: #9C90C1 !important;
-    margin-top: 10px;
-}
 
 
 .btnBox{
@@ -212,7 +227,7 @@ a {
 }
 
 .buttonContainer{
-    border-top: 1px solid black;
+    margin-top: 40px;
 }
 /*end*/
 /*chart*/
@@ -220,16 +235,18 @@ a {
 .chartContainer{
     display:none;                
     height: 500px;
-    overflow: auto;
+/*    overflow: auto;*/
     text-align: center;
 }
 
 
-#myChart a{
+#myChart p a{
     color: blue;
 }
 
 .chartContainer p{
+    border-top: 1px solid #9C90C1;
+    margin-top: 5px;
     width: 100%;
     height: 100px;
 }
@@ -327,6 +344,7 @@ footer {
     color: #fff;
 }
 /* Sticky Footer*/
+
 html, body {
   height: 100%;
   margin: 0;

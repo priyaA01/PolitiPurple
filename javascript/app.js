@@ -151,8 +151,7 @@ function pairFind() {
 $("#showNews").on("click", function (e) {
     e.preventDefault();
 
-    $(article1Div).html("");
-    $(article2Div).html("");
+    
 
     if($("#searchTopic").val()!="" && $("#sourceBar option:selected").val()!= "selectNews"){     
         newsSubject = $("#searchTopic").val().trim();
@@ -193,12 +192,7 @@ $("#showNews").on("click", function (e) {
 			$("#showNews").css({
 				"display": "none"
 			});
-			$("#newSearchButton").css({
-			"display": "none"
-			});
-			$("#chartButton").css({
-			"display": "none"
-			});
+
 			$("#btn-ok").css({
 				"display": "block"
 			});
@@ -212,12 +206,6 @@ $("#showNews").on("click", function (e) {
 		$("#ageBox").hide();
 		$("#genderBox").material_select('destroy');
 		$("#showNews").css({
-			"display": "none"
-		});
-		$("#newSearchButton").css({
-			"display": "none"
-		});
-		$("#chartButton").css({
 			"display": "none"
 		});
 		$("#btn-ok").css({
@@ -241,6 +229,9 @@ $("#showNews").on("click", function (e) {
 	console.log(newsSubject)
 	console.log("news Source 1   " + newsSource1);
 	console.log("news source 2   " + newsSource2);
+
+	$(article1Div).html("");
+    $(article2Div).html("");
 
 	$(".leftArticle").show();
 	$(".rightArticle").show();
@@ -298,8 +289,8 @@ $("#showNews").on("click", function (e) {
 				"target='_blank'>"+response.articles[0].title+
 				"</a></h3><h4 class='secondLine'> Published by"+" "+"<span id='sourceTag'>"+response.articles[0].source.name+"</span>"+
 				" "+"on"+" "+moment(response.articles[0].publishedAt).format("MM-DD-YYYY")+
-				"</h4><p class='card-text'>"+response.articles[0].description+
-				"</p><button class='btn toggle'>See Other Top News Stories</button>");
+				"</h4><p class='card-text'>"+response.articles[0].description+"<p class='card-likes'>78,999&nbsp;<i class='far fa-thumbs-up'></i> liked this</p>" +
+				"</p><button class='btn toggle'>See Other News Stories</button>");
 			front1.append(lowhalf);
 			article1Div.prepend(front1);
 
@@ -319,6 +310,7 @@ $("#showNews").on("click", function (e) {
 			if(count===5)
 			{
 				count=1;
+				back1.prepend("<h2>Other Articles on Your Topic</h2>");
 				back1.append("<button class='btn toggle'>Return to Top Story</button>");
 			article1Div.append(back1);
 				break;
@@ -344,7 +336,7 @@ $("#showNews").on("click", function (e) {
 	// 			likeDiv.addClass("likeDiv");
 	// 			likeDiv.append("<p><i class='far fa-thumbs-up'></i>"+" "+results[0].thread.social.facebook.likes+" "+ "liked this</p>");
 	// 			front1.append(likeDiv);
-	// 			front1.append("</p><button class='toggle'>See Other Top News Stories</button>");
+	// 			front1.append("</p><button class='toggle'>See Other News Stories</button>");
 	// 			article1Div.prepend(front1);
 
 	// 			}
@@ -356,7 +348,7 @@ $("#showNews").on("click", function (e) {
 	// 			likeDiv.addClass("likeDiv");
 	// 			likeDiv.append("<p>Likes not Available</p>");
 	// 			front1.append(likeDiv);
-	// 			front1.append("</p><button class='toggle'>See Other Top News Stories</button>");
+	// 			front1.append("</p><button class='toggle'>See Other News Stories</button>");
 	// 			article1Div.prepend(front1);
 	// 		}
 
@@ -383,6 +375,9 @@ $("#showNews").on("click", function (e) {
 			"display": "none"
 		});
 		$("#chartButton").css({
+			"display": "none"
+		});
+		$(".optionalClose").css({
 			"display": "none"
 		});
 		$("#btn-ok").css({
@@ -417,8 +412,8 @@ $("#showNews").on("click", function (e) {
 				"target='_blank'>"+response.articles[0].title+
 				"</a></h3><h4 class='secondLine'> Published by"+" "+"<span id='sourceTag'>"+response.articles[0].source.name+"</span>"+
 				" "+"on"+" "+moment(response.articles[0].publishedAt).format("MM-DD-YYYY")+
-				"</h4><p class='card-text'>"+response.articles[0].description+
-				"</p><button class='btn toggle'>See Other Top News Stories</button>");
+				"</h4><p class='card-text'>"+response.articles[0].description+"<p class='card-likes'>78,999&nbsp;<i class='far fa-thumbs-up'></i> liked this</p>"+
+				"</p><button class='btn toggle'>See Other News Stories</button>");
 			front2.append(lowhalf);
 			article2Div.append(front2);
 
@@ -435,6 +430,7 @@ $("#showNews").on("click", function (e) {
 			if(count===5)
 			{
 				count=1;
+				back2.prepend("<h2>Other Articles on Your Topic</h2>");
 				back2.append("<button class='btn toggle'>Return to Top Story</button>");
 			article2Div.append(back2);
 				break;
@@ -460,7 +456,7 @@ $("#showNews").on("click", function (e) {
 	// 			likeDiv.addClass("likeDiv");
 	// 			likeDiv.append("<p><i class='far fa-thumbs-up'></i>"+" "+results[0].thread.social.facebook.likes+" "+ "liked this</p>");
 	// 			front2.append(likeDiv);
-	// 			front2.append("</p><button class='toggle'>See Other Top News Stories</button>");
+	// 			front2.append("</p><button class='toggle'>See Other News Stories</button>");
 	// 			article2Div.prepend(front2);
 
 	// 			}
@@ -472,7 +468,7 @@ $("#showNews").on("click", function (e) {
 	// 			likeDiv.addClass("likeDiv");
 	// 			likeDiv.append("<p>Likes not Available</p>");
 	// 			front2.append(likeDiv);
-	// 			front2.append("</p><button class='toggle'>See Other Top News Stories</button>");
+	// 			front2.append("</p><button class='toggle'>See Other News Stories</button>");
 	// 			article2Div.prepend(front2);
 	// 		}
 			
@@ -498,11 +494,16 @@ $("#showNews").on("click", function (e) {
 		$("#btn-ok").css({
 			"display": "block"
 		});
+		$(".opttionalClose").css({
+			"display": "block"
+		});
 		$("#userMsg").empty().append("No article found, try new search");
 	});
 
 if(lean==="left"){    
     $(".leftArticle").append(article1Div);
+    $(".leftArticle").css("border-right", "2px solid #301D6E");
+    $(".buttonContainer").css("border-bottom", "1px solid #D0D0D0");
      $(".rightArticle").append(article2Div);
     lean="";
 }
@@ -510,6 +511,8 @@ if(lean==="left"){
 else if (lean==="right"){
     article2Div.addClass("leftInfo");
     $(".leftArticle").append(article2Div);
+    $(".leftArticle").css("border-right", "2px solid #301D6E");
+    $(".buttonContainer").css("border-bottom", "1px solid #D0D0D0");
     article1Div.addClass("rightInfo");
     $(".rightArticle").append(article1Div);
     lean="";
