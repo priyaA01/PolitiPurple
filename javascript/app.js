@@ -41,7 +41,7 @@
 	var pair = ["pair1", "pair2", "pair3", "pair4", "pair5", "pair6"];
 
 	$(document).ready(function () {
-    
+		// $(".dropdown-content>li>span").css("color", "#000");
 
 	// Open the modal 
 		modal.css({
@@ -68,21 +68,25 @@
 		modal.css({
 			"display": "none"
 		});
+		chartModal.css({
+			"display": "none"
+		});
 	});
 
 	$("#chartButton").on("click", function (e) {
 		chartModal.css({
 			"display": "block"
 		});
+		$(".chartContainer").css({
+			"display": "block"
+		});
 
-	});
-
-	$(".close").on("click", function () {
-		chartModal.css({
-			"display": "none"
+		$(".optionalClose").css({
+			"display": "block"
 		});
 
 	});
+
 	$("#newSearchButton").on("click", function (e) {
 		modal.css({
 			"display": "block"
@@ -113,7 +117,6 @@
 			"display": "none"
 		});
 		$("#userMsg").empty();
-		$(".chartContainer").hide();
 
 		//reset boxes
 		$("#searchTopic").val("");
@@ -239,8 +242,8 @@ $("#showNews").on("click", function (e) {
 	console.log("news Source 1   " + newsSource1);
 	console.log("news source 2   " + newsSource2);
 
-	$(article1Div).show();
-	$(article2Div).show();
+	$(".leftArticle").show();
+	$(".rightArticle").show();
 
 	$("#newSearchButton").css({
 		"display": "block"
@@ -296,7 +299,7 @@ $("#showNews").on("click", function (e) {
 				"</a></h3><h4 class='secondLine'> Published by"+" "+"<span id='sourceTag'>"+response.articles[0].source.name+"</span>"+
 				" "+"on"+" "+moment(response.articles[0].publishedAt).format("MM-DD-YYYY")+
 				"</h4><p class='card-text'>"+response.articles[0].description+
-				"</p><button class='toggle'>See Other Top News Stories</button>");
+				"</p><button class='btn toggle'>See Other Top News Stories</button>");
 			front1.append(lowhalf);
 			article1Div.prepend(front1);
 
@@ -316,7 +319,7 @@ $("#showNews").on("click", function (e) {
 			if(count===5)
 			{
 				count=1;
-				back1.append("<button class='toggle'>Return to Top Story</button>");
+				back1.append("<button class='btn toggle'>Return to Top Story</button>");
 			article1Div.append(back1);
 				break;
 			}
@@ -367,8 +370,8 @@ $("#showNews").on("click", function (e) {
 		modal.css({
 			"display": "block"
 		});
-		$(article1Div).hide();
-		$(article2Div).hide();
+		$(".leftArticle").hide();
+		$(".rightArticle").hide();
 		$("#searchTopic").hide();
 		$("#sourceBar").material_select('destroy');
 		$("#ageBox").hide();
@@ -379,7 +382,7 @@ $("#showNews").on("click", function (e) {
 		$("#newSearchButton").css({
 			"display": "none"
 		});
-			$("#chartButton").css({
+		$("#chartButton").css({
 			"display": "none"
 		});
 		$("#btn-ok").css({
@@ -415,7 +418,7 @@ $("#showNews").on("click", function (e) {
 				"</a></h3><h4 class='secondLine'> Published by"+" "+"<span id='sourceTag'>"+response.articles[0].source.name+"</span>"+
 				" "+"on"+" "+moment(response.articles[0].publishedAt).format("MM-DD-YYYY")+
 				"</h4><p class='card-text'>"+response.articles[0].description+
-				"</p><button class='toggle'>See Other Top News Stories</button>");
+				"</p><button class='btn toggle'>See Other Top News Stories</button>");
 			front2.append(lowhalf);
 			article2Div.append(front2);
 
@@ -432,7 +435,7 @@ $("#showNews").on("click", function (e) {
 			if(count===5)
 			{
 				count=1;
-				back2.append("<button class='toggle'>Return to Top Story</button>");
+				back2.append("<button class='btn toggle'>Return to Top Story</button>");
 			article2Div.append(back2);
 				break;
 			}
@@ -483,8 +486,8 @@ $("#showNews").on("click", function (e) {
 		modal.css({
 			"display": "block"
 		});
-		$(article1Div).hide();
-		$(article2Div).hide();
+		$(".leftArticle").hide();
+		$(".rightArticle").hide();
 		$("#searchTopic").hide();
 		$("#sourceBar").material_select('destroy');
 		$("#ageBox").hide();
