@@ -12,17 +12,6 @@ header{
     border-bottom: 4px solid #301D6E;
 }
 
-.display-4 {
-    font-size: 4.2rem;
-    line-height: 110%;
-    margin: 1.1rem 0 0.68rem 0;
-}
-
-.headerRow {
-    margin-bottom: 0;
-                           
-}
-
 .red {
     background-color: #fff !important;  /*#9C90C1;*/
     color: #FE0000 !important;
@@ -99,7 +88,7 @@ input, select{
     bottom:0;
     font-size: 13px;
     line-height: 13px !important;
-    padding: 5px;
+    margin: 5px;
     background-color: #9C90C1 !important;
 
 }
@@ -198,7 +187,7 @@ input, select{
     text-align: center;
     color:  #3b5998;
     line-height: 13px;
-    padding:5px;
+    margin:5px;
 }
 
 .secondLine{
