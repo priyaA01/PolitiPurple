@@ -1,5 +1,3 @@
-$( document ).ready(function() {
-
 // INITITIALIZE FIREBASE 
 
 	var config = {
@@ -47,106 +45,54 @@ $( document ).ready(function() {
 	
 	var pair = ["pair1", "pair2", "pair3", "pair4", "pair5", "pair6"];
 
-// START PAGE LOAD: Upon page load create and display initial modal so the user can enter a subject, select a news source, and optionally provide their age and gender information. A notice is also created for when no results are returned or if no required fields contain data.
+//OBJECT Chart uses data below to plot location of the news source data points across liberal to conservative spectrum.
 
-	modal.css({
-		"display": "block"
-	});
- 	$('select').material_select();
-
-	$("#btn-ok").css({
-		"display": "none"
-	});
-	$("#newSearchButton").css({
-		"display": "none"
-	});
-	$("#chartButton").css({
-		"display": "none"
-	});
-	$(".optionalClose").css({
-		"display": "none"
-	});
+	var chart = new CanvasJS.Chart("myChart", {
+		animationEnabled: true,
+		title:{
+			text: "See where your Sources Lie",
+		},
+		axisX: {
+			title:"Lean: Liberal to Conservative Bias",
+			minimum:0,
+			maximum:14
+		},
+		axisY: {
+			title:"Quality: Inaccurate Info to Original Fact Reporting"
+		},
+		data: [{
+			type: "bubble",
+			toolTipContent: "<b>{name}</b>",
+			color:"rgba(255,12,32,.5)",
+			dataPoints: [
+				{ x: 7.5, y: 7.1,z: 10, name: "Time" },
+				{ x: 7.9, y: 6.4,z: 10, name: "The Economist" },
+				{ x: 9, y: 7.5,z: 10, name: "The Hill" },
+				{ x: 8.4, y: 7.3,z: 10, name: "Wall Street Journal" },
+				{ x: 11.5, y: 2,z: 10, name: "Fox News" },
+				{ x: 12.1, y: 1,z: 10, name: "Breritbart News" }
+			]
+		},
+		{
+			type: "bubble",
+			toolTipContent: "<b>{name}</b>",
+			color:"rgba(12,143,221,.2)",
+			dataPoints: [
+				{ x: 6, y: 7.1,z: 10, name: "Washington Post" },
+				{ x: 6.2, y: 4.1,z: 10, name: "CNN" },
+				{ x: 6, y: 6.8,z: 10, name: "The Guardian" },
+				{ x: 3.2, y: 3.8,z: 10, name: "Huffington Post" },
+				{ x: 4.1, y: 4.5,z: 10, name: "MSNBC" },
+				{ x: 4, y: 3.6,z: 10, name: "Buzzfeed News" },
+			]
+		}]
+	});	
 	
-// END PAGE LOAD 
+// START FUNCTIONS	
 
-// START LISTENERS 
-
-	// Listening to Modal "X" to close modal
-	$(".optionalClose").on("click", function (e) {
-		modal.css({
-			"display": "none"
-		});
-		chartModal.css({
-			"display": "none"
-		});
-	});
-
-	// Listening to button on page to launch chart modal
-	$("#chartButton").on("click", function (e) {
-		chartModal.css({
-			"display": "block"
-		});
-		$(".chartContainer").css({
-			"display": "block"
-		});
-
-		$(".optionalClose").css({
-			"display": "block"
-		});
-
-	});
-
-	// Listening to button on page to relaunch search modal with heading text removed and fields reset.
-	$("#newSearchButton").on("click", function (e) {
-		modal.css({
-			"display": "block"
-		});
-		$(".optionalClose").css({
-			"display": "block"
-		});
-		// reset fields in modal
-		$("#searchTopic").val("");
-		$("#ageBox").val("");
-
-		$("form input").val("");
-		$("select").prop('selectedIndex', 0);
-		$("select").material_select();
-	});
-
-	// Listening to "OK" notice button on modal when no results are returned or no fields have been filled in on the initial search modal  the fields are reset and displayed so the user can try a new search.
-	$("#btn-ok").on("click", function (e) {
-		$("#searchTopic").show();
-		$("#sourceBar").material_select();
-		$("#ageBox").show();
-		$("#genderBox").material_select();
-		$("#showNews").css({
-			"display": "block"
-		});
-		$("#btn-ok").css({
-			"display": "none"
-		});
-		$("#userMsg").empty();
-
-		//reset boxes
-		$("#searchTopic").val("");
-		$("#ageBox").val("");
-
-		$("form input").val("");
-		$("select").prop('selectedIndex', 0);
-		$("select").material_select();
-
-	});
-
-/* END LISTENERS */	
-	
-	
-	
 function pairFind() {
-
 	newsSource1 = $("#sourceBar option:selected").val();
-
 	//adding left and right
-
 	for (var i = 0, j = 0; i < pair.length; i++) {
 		if (newsSourcePair[pair[i]][j] == newsSource1) {
 			newsSource2 = newsSourcePair[pair[i]][j + 1];
@@ -160,77 +106,8 @@ function pairFind() {
 	}
 }
 
-
-$("#showNews").on("click", function (e) {
-    e.preventDefault();
-
-    
-
-    if($("#searchTopic").val()!="" && $("#sourceBar option:selected").val()!= "selectNews"){     
-        newsSubject = $("#searchTopic").val().trim();
-        age = $("#ageBox").val().trim();
-        gender = $("#genderBox option:selected").val();
-        console.log(gender);
-        var dateAdded=moment().format("YYYY-MM-DD");
-
-        if(age==""){
-           age=0;
-       }else if(parseInt(age) > 1 || parseInt(age) < 100){
-           age=age;
-
-       }else{
-           age=-1;
-       }
-
-       if(age>=0){
-    	database.ref().push({
-	    newsSubject: newsSubject,
-	    newsSource1: newsSource1,
-	    age:age,
-	    gender: gender,
-	    dateAdded: dateAdded
-	      })
-
-	    	modal.css({
-				"display": "none"
-			});
-			pairFind();
-
-    	}else {
-			//console.log("Please Enter Valid Age");
-			$("#searchTopic").hide();
-			$("#sourceBar").material_select('destroy');
-			$("#ageBox").hide();
-			$("#genderBox").material_select('destroy');
-			$("#showNews").css({
-				"display": "none"
-			});
-
-			$("#btn-ok").css({
-				"display": "block"
-			});
-			$("#userMsg").empty().append("Please Enter Valid Age in Numbers");
-
-		}
-	}else {
-		// console.log("Please enter required values");
-		$("#searchTopic").hide();
-		$("#sourceBar").material_select('destroy');
-		$("#ageBox").hide();
-		$("#genderBox").material_select('destroy');
-		$("#showNews").css({
-			"display": "none"
-		});
-		$("#btn-ok").css({
-			"display": "block"
-		});
-		$("#userMsg").empty().append("Please Enter required values");
-	}
-
-});
-
-
- function queryAPI(newsSource1, newsSource2) {
+function queryAPI(newsSource1, newsSource2) {
+	// look at current date and set newsSource ranges to 1 month prior.
 	var from = moment().subtract(1, "months").format("YYYY-MM-DD");
 	var to = moment().format("YYYY-MM-DD");
 	var count=1;
@@ -533,60 +410,174 @@ else if (lean==="right"){
 }
 }
 
+// END FUNCTIONS	
+	
+// START PAGE LOAD: Upon page load create and display initial modal so the user can enter a subject, select a news source, and optionally provide their age and gender information. A notice is also created for when no results are returned or if no required fields contain data.
 
-$(".leftArticle").on("click",".toggle", function() {
-	console.log("click");
-    $(".flip-containerL").toggleClass("hover");
-})
+$( document ).ready(function() {
+	modal.css({
+		"display": "block"
+	});
+ 	$('select').material_select();
 
-$(".rightArticle").on("click",".toggle", function() {
-	console.log("click");
-    $(".flip-containerR").toggleClass("hover");
-})
+	$("#btn-ok").css({
+		"display": "none"
+	});
+	$("#newSearchButton").css({
+		"display": "none"
+	});
+	$("#chartButton").css({
+		"display": "none"
+	});
+	$(".optionalClose").css({
+		"display": "none"
+	});
+});	
 
-//Katharine's Code that creates chart
+// END PAGE LOAD 
 
-var chart = new CanvasJS.Chart("myChart", {
-	animationEnabled: true,
-	title:{
-		text: "See where your Sources Lie",
-		// fontFamily: 'Lobster',
-	},
-	axisX: {
-		title:"Lean: Liberal to Conservative Bias",
-		minimum:0,
-		maximum:14
-	},
-	axisY: {
-		title:"Quality: Inaccurate Info to Original Fact Reporting"
-	},
-	data: [{
-		type: "bubble",
-		toolTipContent: "<b>{name}</b>",
-		color:"rgba(255,12,32,.5)",
-		dataPoints: [
-			{ x: 7.5, y: 7.1,z: 10, name: "Time" },
-			{ x: 7.9, y: 6.4,z: 10, name: "The Economist" },
-			{ x: 9, y: 7.5,z: 10, name: "The Hill" },
-			{ x: 8.4, y: 7.3,z: 10, name: "Wall Street Journal" },
-			{ x: 11.5, y: 2,z: 10, name: "Fox News" },
-			{ x: 12.1, y: 1,z: 10, name: "Breritbart News" }
-		]
-	},
-	{
-		type: "bubble",
-		toolTipContent: "<b>{name}</b>",
-		color:"rgba(12,143,221,.2)",
-		dataPoints: [
-			{ x: 6, y: 7.1,z: 10, name: "Washington Post" },
-			{ x: 6.2, y: 4.1,z: 10, name: "CNN" },
-			{ x: 6, y: 6.8,z: 10, name: "The Guardian" },
-			{ x: 3.2, y: 3.8,z: 10, name: "Huffington Post" },
-			{ x: 4.1, y: 4.5,z: 10, name: "MSNBC" },
-			{ x: 4, y: 3.6,z: 10, name: "Buzzfeed News" },
-		]
-	}]
-});
-chart.render();
+// START LISTENERS 
 
-});
+	// Listening to Modal "X" to close modal
+	$(".optionalClose").on("click", function (e) {
+		modal.css({
+			"display": "none"
+		});
+		chartModal.css({
+			"display": "none"
+		});
+	});
+
+	// Listening to button on page to launch chart modal
+	$("#chartButton").on("click", function (e) {
+		chartModal.css({
+			"display": "block"
+		});
+		$(".chartContainer").css({
+			"display": "block"
+		});
+
+		$(".optionalClose").css({
+			"display": "block"
+		});
+
+	});
+
+	// Listening to button on page to relaunch search modal with heading text removed and fields reset.
+	$("#newSearchButton").on("click", function (e) {
+		modal.css({
+			"display": "block"
+		});
+		$(".optionalClose").css({
+			"display": "block"
+		});
+		// reset fields in modal
+		$("#searchTopic").val("");
+		$("#ageBox").val("");
+
+		$("form input").val("");
+		$("select").prop('selectedIndex', 0);
+		$("select").material_select();
+	});
+
+	// Listening to "OK" notice button on modal when no results are returned or no fields have been filled in on the initial search modal.  The fields are reset and displayed so the user can try a new search.
+	$("#btn-ok").on("click", function (e) {
+		$("#searchTopic").show();
+		$("#sourceBar").material_select();
+		$("#ageBox").show();
+		$("#genderBox").material_select();
+		$("#showNews").css({
+			"display": "block"
+		});
+		$("#btn-ok").css({
+			"display": "none"
+		});
+		$("#userMsg").empty();
+		//reset boxes
+		$("#searchTopic").val("");
+		$("#ageBox").val("");
+		$("form input").val("");
+		$("select").prop('selectedIndex', 0);
+		$("select").material_select();
+	});
+
+	$("#showNews").on("click", function (e) {
+		e.preventDefault();
+		if($("#searchTopic").val()!="" && $("#sourceBar option:selected").val()!= "selectNews"){     
+			newsSubject = $("#searchTopic").val().trim();
+			age = $("#ageBox").val().trim();
+			gender = $("#genderBox option:selected").val();
+			console.log(gender);
+			var dateAdded=moment().format("YYYY-MM-DD");
+			if(age==""){
+			   age=0;
+		   }else if(parseInt(age) > 1 || parseInt(age) < 100){
+			   age=age;
+		   }else{
+			   age=-1;
+		   }
+		   if(age>=0){
+			database.ref().push({
+			newsSubject: newsSubject,
+			newsSource1: newsSource1,
+			age:age,
+			gender: gender,
+			dateAdded: dateAdded
+			  })
+
+				modal.css({
+					"display": "none"
+				});
+				pairFind();
+
+			}else {
+				//console.log("Please Enter Valid Age");
+				$("#searchTopic").hide();
+				$("#sourceBar").material_select('destroy');
+				$("#ageBox").hide();
+				$("#genderBox").material_select('destroy');
+				$("#showNews").css({
+					"display": "none"
+				});
+
+				$("#btn-ok").css({
+					"display": "block"
+				});
+				$("#userMsg").empty().append("Please Enter Valid Age in Numbers");
+
+			}
+		}else {
+			// console.log("Please enter required values");
+			$("#searchTopic").hide();
+			$("#sourceBar").material_select('destroy');
+			$("#ageBox").hide();
+			$("#genderBox").material_select('destroy');
+			$("#showNews").css({
+				"display": "none"
+			});
+			$("#btn-ok").css({
+				"display": "block"
+			});
+			$("#userMsg").empty().append("Please Enter required values");
+		}
+
+	});
+
+	$(".leftArticle").on("click",".toggle", function() {
+		console.log("click");
+		$(".flip-containerL").toggleClass("hover");
+	})
+
+	$(".rightArticle").on("click",".toggle", function() {
+		console.log("click");
+		$(".flip-containerR").toggleClass("hover");
+	})
+
+/* END LISTENERS */	
+
+/* START FUNCTION CALLS */
+
+	chart.render();
+
+// END FUNCTION CALLS
+// END FILE

@@ -206,11 +206,6 @@ h2 {
     text-align: center;
 }
 
-
-#myChart p a{
-    color: blue;
-}
-
 .chartContainer p{
     border-top: 1px solid #9C90C1;
     margin-top: 5px;
@@ -223,6 +218,15 @@ h2 {
     height: 400px !important;
     margin: auto;
 
+}
+
+#myChart p a{
+    color: blue;
+}
+
+#chartModal {
+	padding-top: 0;
+	padding-bottom: 0;
 }
 
 /*-- START MODAL CSS --*/
