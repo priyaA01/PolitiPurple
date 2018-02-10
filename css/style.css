@@ -6,17 +6,53 @@ body{
 }
 
 header{
-	font-family: 'Abril Fatface', cursive;
+    font-family: 'Abril Fatface', cursive;
+    background-color: #fff; /*#9C90C1;*/
+    margin: 0 0 -10px 0;
+    border-bottom: 4px solid #301D6E;
 }
+
+.red {
+    background-color: #fff !important;  /*#9C90C1;*/
+    color: #FE0000 !important;
+}
+
+.blue {
+    background-color: #fff !important;  /*#9C90C1;*/
+    color: #384BA7 !important;
+}
+
+.purple  {
+    background-color: #fff !important;  /*#9C90C1;*/
+    color: #301D6E !important;
+    /*text-shadow: 2px 2px 10px #9C90C1; */
+}
+
+.lead {
+    background-color: #fff !important;  /*#9C90C1;*/
+    color: #301D6E !important;  
+    padding-bottom: 5px;
+}
+
+/**/
+h2{
+    font-size: 24px;
+}
+/**/
 
 input, select{
     width: 100%;
     border-radius:5px;
 }
 .container{
-	text-align: center
+    text-align: center
 }
 
+#userMsg{
+    font-weight: 900;
+    font-size: 24px;
+    margin-bottom:40px;
+}        
 #genderBox{
     height: 30px;  
 }
@@ -25,12 +61,37 @@ input, select{
     margin-top:1px;
     height: 30px;
 }
-#showNews{
+#showNews, #btn-ok{
     margin: 0 auto;
     margin-top: 10px;
     font-family: 'Abril Fatface', cursive;
 }
 
+.dropdown-content li>span{
+    color: #000 !important;
+}
+
+.input-field input[type=text]:focus {
+     border-bottom: 1px solid purple !important;
+     box-shadow: 0 1px 0 0 purple !important;
+   }
+
+.#sourceBar option {
+     color: purple !important;
+   }   
+
+/*body components*/
+
+.toggle{
+    position:absolute;
+    right:30%;
+    bottom:0;
+    font-size: 13px;
+    line-height: 13px !important;
+    margin: 5px;
+    background-color: #9C90C1 !important;
+
+}
 .articleContainer{
     margin-top: 50px;
     margin-bottom: 20px;
@@ -41,9 +102,7 @@ input, select{
 }
 /*dynamic divs*/
 
-a {
-   color: black;
-}
+
 .card-image{
     width: 286px;
     height: 180px;
@@ -85,7 +144,6 @@ a {
     position: absolute;
     top: 0;
     left: 0;
-    overflow-y:auto;
 }
 
 .front{
@@ -100,21 +158,40 @@ a {
 }
 
 .card-content{
-    overflow: scroll;
-    margin-bottom: 5px;
+    overflow: auto;
+    padding:5px;
 }
 
-.card-content h3{
+.card-text{
+    height: 40px;
+}
+
+.card-title{
     font-size: 18px;
     text-align: left;
+    height: 64px;
+    margin-top: 15px;
 }
 
-.card-content p, h4{
+.card-title a {
+   color: black;
+}
+
+.card-text, .secondLine{
     font-size: 13px;
     text-align: left;
 }
 
-.card-content h4{
+.card-likes{
+    font-size: 13px;
+    text-align: center;
+    line-height: 13px;
+    margin-top: 5px !important;
+    color:  #3b5998 !important;
+}
+
+
+.secondLine{
     color:grey;
 }
 
@@ -125,31 +202,41 @@ a {
 
 /*buttons*/
 #newSearchButton,#chartButton{
+    display:none;            
     margin: auto;
-    background-color: purple;
 }
+
+.btn {
+    background-color: #6F6FAC !important;
+}
+
 
 
 .btnBox{
     text-align: center;
 }
 
+.buttonContainer{
+    margin-top: 40px;
 }
 /*end*/
 /*chart*/
 
 .chartContainer{
+    display:none;                
     height: 500px;
-    overflow: auto;
+/*    overflow: auto;*/
     text-align: center;
 }
 
-/*#myChart{
-    width: 80%;
-    height: 250px !important;
-}*/
+
+#myChart p a{
+    color: blue;
+}
 
 .chartContainer p{
+    border-top: 1px solid #9C90C1;
+    margin-top: 5px;
     width: 100%;
     height: 100px;
 }
@@ -174,10 +261,10 @@ a {
     padding-top: 100px;
 }
 
-<!--
-/* Modal Content */
 
--->.modal-content-1 {
+                   
+
+.modal-content-1 {
     background-color: #fefefe;
     margin: 70px auto;
     padding: 20px;
@@ -185,10 +272,10 @@ a {
     height: 400px;
 }
 
-<!--
+
 /* Modal Content */
 
--->.modal-content-2 {
+.modal-content-2 {
     background-color: #fefefe;
     margin: 70px auto;
     padding: 5px;
@@ -204,14 +291,16 @@ a {
     color: #000;
     font-size: 20px;
     font-weight: bold;
-    text-align: center;
+    text-align: right;
     padding: 0 0 0 5px;
-    margin: 0 auto;
+   /* margin: 0 auto; */
     /*  margin-top: 10px; */
     font-family: 'Abril Fatface', cursive;
 }
 
-.modalCont {
+
+
+.modalCont2 {
     width: 100%;
     margin: 0 0 0 0;
     padding: 0 0 0 0;
@@ -233,15 +322,19 @@ a {
 footer {
     clear: both;
     font-family: 'Abril Fatface', cursive;
-	left: 0;
-	bottom: 0;
-	margin: 0;
-	width: 100;
-	padding: 3em;
-	text-align: center;
-	font-size: 0.8em;
+    left: 0;
+    bottom: 0;
+    margin: 0;
+    width: 100;
+    padding: 2.5em;
+    text-align: center;
+    font-size: 0.8em;
+    border-top: 2px solid #9C90C1;
+    background-color: #301D6E;
+    color: #fff;
 }
 /* Sticky Footer*/
+
 html, body {
   height: 100%;
   margin: 0;
@@ -254,4 +347,5 @@ footer,
 .push {
   height: 50px;
 }
+/*--------------*/
 /*--------------*/

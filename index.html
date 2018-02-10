@@ -20,44 +20,50 @@
 	
 </head>
 <body>
-	<div class="wrapper">
-		<header>
-	  		<div class="container">
-				<div class="row">
-					<div class="col s2">
-						<img src="images/donkey.png">
-					</div>
-					<div class="col s8">
-						<h1 class="display-4">PolitiPurple</h1>
-						<p class="lead">For every news story there's an equal and opposite news story</p>
-					</div>	 
-					<div class="col s2">
-						<img src="images/elephant.png">
-					</div> 
-				 </div>
+   <div class="wrapper">
+      <header>
+         <div class="container">
+            <div class="row headerRow">
+               <div class="col s2">
+                  <img src="images/donkey.png">
+               </div>
+               <div class="col s8">
+                  <h1 class="display-4"><span class="red">P</span><span class="blue">o</span><span class="red">l</span><span class="blue">i</span><span class="red">t</span><span class="blue">i</span><span class="purple">Purple</span></h1>
+                  <p class="lead">For every news story there's an equal and opposite news story</p>
+               </div>    
+               <div class="col s2">
+                  <img src="images/elephant.png">
+               </div> 
+             </div>
+         </div>
+      </header>
 
-	  		</div>
-		</header>
-
+      <div class="container buttonContainer">
+            <div class="row">
+            <div class="col s6 btnBox">
+               <button type="button" class="btn" id="newSearchButton">I Want to Search a New Term</button>
+            </div>
+            <div class="col s6 btnBox">
+               <button type="button" class="btn" id="chartButton">Why Am I Seeing These Sources?</button>
+            </div>
+         </div>
+      </div>
 		
          <div id="modal1" class="modal modal-overlay">
             <div class="modal-content modal-content-1">
                <div class="container modalCont">
                   <div class="row">
-                     <div class="col s11"></div>
-                     <div class="col s1">
-                        <span class="optionalClose">&times;</span>
-                     </div>
+                     <div class="optionalClose">&times;</div>
                   </div>
-                  <div class="row">
-                     <p id="userMsg"></p>
-                     <button type="button" class="btn btn-secondary" id="btn-ok">OK</button>
+                  <div class="row msgRow">
+                     <p id="userMsg">Search the News. Pick your Source. Let us Show You what Others are Saying</p>
+                     <button type="button" class="btn" id="btn-ok">OK</button>
                      <!-- till here -->
 
                      <!-- <div class="container searchContainer">
                         <div class="row"> -->
                      <div class="col s6">
-                        <div class="myBox">
+                        <div class="myBox input-field">
                            <input id="searchTopic" type="text" placeholder="Search Topic (Required)">
                         </div>
                      </div>
@@ -65,7 +71,7 @@
                      <div class="input-field col s6">
                         <select id="sourceBar">
                            <option value="selectNews" disabled selected>Select News Source (Required)</option>
-                           <option value="breitbart-news" >Breitbart News</option>
+                           <option value="breitbart-news">Breitbart News</option>
                            <option value="buzzfeed" >BuzzFeed</option>
                            <option value="cnn" >CNN</option>
                            <option value="fox-news" >Fox News</option>
@@ -82,8 +88,8 @@
                   </div>
                   <div class="row">
                      <div class="col s6">
-                        <div class="myBox">
-                           <input id="ageBox" placeholder="Your Age (Optional)">
+                        <div class="myBox input-field">
+                           <input id="ageBox" type=text placeholder="Your Age (Optional)">
                         </div>
                      </div>
                      <div class="input-field col s6">
@@ -96,7 +102,7 @@
                      </div>
                   </div>
                   <div class="row">
-                     <button type="button" class="btn btn-secondary" id="showNews">Search the News</button>
+                     <button type="button" class="btn" id="showNews">Search the News</button>
                   </div>
                </div>
             </div>
@@ -108,33 +114,24 @@
   			</div>
 		</div>
 
-      <div class="container buttonContainer">
-            <div class="row">
-            <div class="col s6 btnBox">
-               <button type="button" class="btn btn-secondary" id="newSearchButton">I Want to Search a New Term</button>
-            </div>
-            <div class="col s6 btnBox">
-               <button type="button" class="btn btn-secondary" id="chartButton">Why Am I Seeing These Sources?</button>
-            </div>
-         </div>
-      </div>
+
 	
 		<div id="chartModal" class="modal modal-overlay">
             <div class="modal-content-2">
-               <div class="container chartContainer modalCont">
+               <div class="container chartContainer modalCont2">
+                  <div class="optionalClose">&times;</div>
                   <div id="myChart"></div>
-                  <p> The pairing of equal and opposite sources have been based on the Media Bias Chart and analysis. For more information and more ranking of sources, <a href="http://www.allgeneralizationsarefalse.com/the-chart-version-3-0-what-exactly-are-we-reading/" target="_blank">continue reading here.</a></p>
+                  <p> The goal of this source pair was to offer a source of equal content level and equidistant from the neutral reporting. The pairing and chart are based on Media Bias Chart and analysis. For more information and more ranking of sources, <a href="http://www.allgeneralizationsarefalse.com/the-chart-version-3-0-what-exactly-are-we-reading/" target="_blank">continue reading here.</a></p>
                </div>
             </div>
          </div>
 
 		<div class="push"></div>
 	
-
+   </div>
 	<footer>
 		&copy; Copyright PolitiPurple 2018
 	</footer>
-   </div>
 <script src="javascript/app.js"></script>
 
 </body>
