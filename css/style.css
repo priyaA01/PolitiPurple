@@ -1,15 +1,31 @@
-*{
+/* -- GENERAL CSS --*/
+* {
     box-sizing: border-box;
 }
-body{
-    font-family: 'Playfair Display', serif;
-}
 
-header{
+/* HEADER CSS */
+
+header {
     font-family: 'Abril Fatface', cursive;
     background-color: #fff; /*#9C90C1;*/
     margin: 0 0 -10px 0;
     border-bottom: 4px solid #301D6E;
+}
+
+h1 { /* ADDED */
+    font-size: 4.2rem;
+    line-height: 110%;
+    margin: 5px 0 20px 0;
+}
+
+.headerRow { /* ADDED */
+	margin-bottom: 0;
+}
+
+.lead {
+    background-color: #fff !important;  /*#9C90C1;*/
+    color: #301D6E !important;  
+    padding-bottom: 5px;
 }
 
 .red {
@@ -28,79 +44,40 @@ header{
     /*text-shadow: 2px 2px 10px #9C90C1; */
 }
 
-.lead {
-    background-color: #fff !important;  /*#9C90C1;*/
-    color: #301D6E !important;  
-    padding-bottom: 5px;
+/*-- BODY CSS --*/
+
+body {
+    font-family: 'Playfair Display', serif;
 }
 
-/**/
-h2{
+h2 {
     font-size: 24px;
 }
-/**/
 
-input, select{
-    width: 100%;
-    border-radius:5px;
-}
 .container{
     text-align: center
 }
 
-#userMsg{
-    font-weight: 900;
-    font-size: 24px;
-    margin-bottom:40px;
-}        
-#genderBox{
-    height: 30px;  
-}
-#sourceBar{
-    clear: both;
-    margin-top:1px;
-    height: 30px;
-}
-#showNews, #btn-ok{
-    margin: 0 auto;
-    margin-top: 10px;
-    font-family: 'Abril Fatface', cursive;
-}
-
-.dropdown-content li>span{
-    color: #000 !important;
-}
-
-.input-field input[type=text]:focus {
-     border-bottom: 1px solid purple !important;
-     box-shadow: 0 1px 0 0 purple !important;
-   }
-
-.#sourceBar option {
-     color: purple !important;
-   }   
-
-/*body components*/
-
 .toggle{
     position:absolute;
-    right:30%;
+    right:25%; /* 30% */
     bottom:0;
     font-size: 13px;
     line-height: 13px !important;
     margin: 5px;
     background-color: #9C90C1 !important;
-
 }
+
 .articleContainer{
-    margin-top: 50px;
+    margin-top: 25px; /* 50px */
     margin-bottom: 20px;
 }
 
 .input-field{
     margin: 0 auto;
 }
-/*dynamic divs*/
+
+/*-- DYNAMIC DIVS --*/
 
 
 .card-image{
@@ -118,6 +95,7 @@ input, select{
     font-weight: 900;
 
 }
+
 .flip-containerL.hover .flipper{
     transform: rotateY(180deg);
 }
@@ -131,6 +109,7 @@ input, select{
     height: 460px;
     
 }
+
 .flipper {
     height: auto;
     transition: 0.6s;
@@ -157,9 +136,10 @@ input, select{
     
 }
 
-.card-content{
+.card .card-content{ /* ADDED .card */
     overflow: auto;
-    padding:5px;
+	padding: 5px 24px 24px 24px; /* 5px */
+    border-radius: 0 0 2px 2px; /* ADDED */
 }
 
 .card-text{
@@ -186,10 +166,9 @@ input, select{
     font-size: 13px;
     text-align: center;
     line-height: 13px;
-    margin-top: 5px !important;
+    margin-top: 20px !important; /* 5px */
     color:  #3b5998 !important;
 }
-
 
 .secondLine{
     color:grey;
@@ -200,7 +179,7 @@ input, select{
     text-decoration: underline;
 }
 
-/*buttons*/
+/*-- BUTTONS --*/
 #newSearchButton,#chartButton{
     display:none;            
     margin: auto;
@@ -210,22 +189,20 @@ input, select{
     background-color: #6F6FAC !important;
 }
 
-
-
 .btnBox{
     text-align: center;
 }
 
 .buttonContainer{
-    margin-top: 40px;
+    margin-top: 25px; /* 40px */
 }
-/*end*/
-/*chart*/
+
+/*-- CHART --*/
 
 .chartContainer{
     display:none;                
     height: 500px;
-/*    overflow: auto;*/
+	/*overflow: auto;*/
     text-align: center;
 }
 
@@ -248,8 +225,7 @@ input, select{
 
 }
 
-
-/* =================== START MODAL CSS =================== */
+/*-- START MODAL CSS --*/
 
 .modal-overlay {
     display: none;
@@ -261,9 +237,6 @@ input, select{
     padding-top: 100px;
 }
 
-
-                   
-
 .modal-content-1 {
     background-color: #fefefe;
     margin: 70px auto;
@@ -272,8 +245,7 @@ input, select{
     height: 400px;
 }
 
-
-/* Modal Content */
+/*-- MODAL CONTENT --*/
 
 .modal-content-2 {
     background-color: #fefefe;
@@ -283,11 +255,9 @@ input, select{
     height: 500px;
 }
 
+/*-- CLOSE BUTTON --*/
 
-/* The Close Button */
-
-.close,
-.optionalClose {
+.close, .optionalClose {
     color: #000;
     font-size: 20px;
     font-weight: bold;
@@ -298,7 +268,12 @@ input, select{
     font-family: 'Abril Fatface', cursive;
 }
 
+/* INITAL MODAL CSS */
 
+input, select {
+    width: 100%;
+    border-radius:5px;
+}
 
 .modalCont2 {
     width: 100%;
@@ -315,10 +290,45 @@ input, select{
     cursor: pointer;
 }
 
+#userMsg{
+    font-weight: 900;
+    font-size: 24px;
+    margin-bottom:40px;
+}
 
-/* =================== END MODAL CSS ========================= */
+#genderBox{
+    height: 30px;  
+}
 
-/*------------------------------------------------------------------------------*/
+#sourceBar{
+    clear: both;
+    margin-top:1px;
+    height: 30px;
+}
+
+#showNews, #btn-ok{
+    margin: 0 auto;
+    margin-top: 10px;
+    font-family: 'Abril Fatface', cursive;
+}
+
+.dropdown-content li>span{
+    color: #000 !important;
+}
+
+.input-field input[type=text]:focus {
+     border-bottom: 1px solid purple !important;
+     box-shadow: 0 1px 0 0 purple !important;
+}
+
+.#sourceBar option {
+     color: purple !important;
+} 
+
+/*-- END MODAL CSS --*/
+
+/*-- STICKY FOOTER --*/
+
 footer {
     clear: both;
     font-family: 'Abril Fatface', cursive;
@@ -333,19 +343,19 @@ footer {
     background-color: #301D6E;
     color: #fff;
 }
-/* Sticky Footer*/
 
 html, body {
   height: 100%;
   margin: 0;
 }
+
 .wrapper {
   min-height: 100%;
   margin-bottom: -50px;
 }
-footer,
-.push {
+
+footer, .push {
   height: 50px;
 }
-/*--------------*/
-/*--------------*/
+
+/*-- END CSS --*/
