@@ -1,16 +1,21 @@
-  //firebase config
-  var config = {
-    apiKey: "AIzaSyDfT3yvJCDry2s7DWgXg72149BFelnxE6c",
-    authDomain: "politipurple.firebaseapp.com",
-    databaseURL: "https://politipurple.firebaseio.com",
-    projectId: "politipurple",
-    storageBucket: "",
-    messagingSenderId: "550902399608"
-  };
-  firebase.initializeApp(config);
+$( document ).ready(function() {
 
-  var database=firebase.database();
+// INITITIALIZE FIREBASE 
 
+	var config = {
+		apiKey: "AIzaSyDfT3yvJCDry2s7DWgXg72149BFelnxE6c",
+		authDomain: "politipurple.firebaseapp.com",
+		databaseURL: "https://politipurple.firebaseio.com",
+		projectId: "politipurple",
+		storageBucket: "",
+		messagingSenderId: "550902399608"
+	};
+
+	firebase.initializeApp(config);
+
+	var database=firebase.database();
+
+// GLOGAL VARIABLES
 
 	var apiKey = "52d1c20852064e27ad9777ae8ab088d7";
 	var apiKeyFB = "4d9c7a74-a2a5-497c-8c59-7dd2f5113ce3";
@@ -22,12 +27,13 @@
 	var age="";
 	var gender="";
 	var lean="";
-
 	var modal = $("#modal1");
 	var chartModal = $("#chartModal");
 	var article1Div = $("<div>");
 	var article2Div = $("<div>");
-	//sets news sources pairs
+
+// OBJECT newsSourcePair: pairings based on team agreement based on info from the article located at:  http://www.allgeneralizationsarefalse.com/the-chart-version-3-0-what-exactly-are-we-reading/
+	
 	var newsSourcePair = {
 		"pair1": ["the-washington-post", "time"],
 		"pair2": ["cnn", "the-economist"],
@@ -37,33 +43,35 @@
 		"pair6": ["buzzfeed", "breitbart-news"]
 	}
 
-
+//ARRAY of pairings
+	
 	var pair = ["pair1", "pair2", "pair3", "pair4", "pair5", "pair6"];
 
-	$(document).ready(function () {
-		// $(".dropdown-content>li>span").css("color", "#000");
+// START PAGE LOAD: Upon page load create and display initial modal so the user can enter a subject, select a news source, and optionally provide their age and gender information. A notice is also created for when no results are returned or if no required fields contain data.
 
-	// Open the modal 
-		modal.css({
-			"display": "block"
-		});
-
-		$('select').material_select();
-
-		$("#btn-ok").css({
-			"display": "none"
-		});
-		$("#newSearchButton").css({
-			"display": "none"
-		});
-		$("#chartButton").css({
-			"display": "none"
-		});
-		$(".optionalClose").css({
-			"display": "none"
-		});
+	modal.css({
+		"display": "block"
 	});
+ 	$('select').material_select();
 
+	$("#btn-ok").css({
+		"display": "none"
+	});
+	$("#newSearchButton").css({
+		"display": "none"
+	});
+	$("#chartButton").css({
+		"display": "none"
+	});
+	$(".optionalClose").css({
+		"display": "none"
+	});
+	
+// END PAGE LOAD 
+
+// START LISTENERS 
+
+	// Listening to Modal "X" to close modal
 	$(".optionalClose").on("click", function (e) {
 		modal.css({
 			"display": "none"
@@ -73,6 +81,7 @@
 		});
 	});
 
+	// Listening to button on page to launch chart modal
 	$("#chartButton").on("click", function (e) {
 		chartModal.css({
 			"display": "block"
@@ -87,6 +96,7 @@
 
 	});
 
+	// Listening to button on page to relaunch search modal with heading text removed and fields reset.
 	$("#newSearchButton").on("click", function (e) {
 		modal.css({
 			"display": "block"
@@ -94,17 +104,16 @@
 		$(".optionalClose").css({
 			"display": "block"
 		});
-		//reset boxes
+		// reset fields in modal
 		$("#searchTopic").val("");
 		$("#ageBox").val("");
 
 		$("form input").val("");
 		$("select").prop('selectedIndex', 0);
 		$("select").material_select();
-
-
 	});
 
+	// Listening to "OK" notice button on modal when no results are returned or no fields have been filled in on the initial search modal  the fields are reset and displayed so the user can try a new search.
 	$("#btn-ok").on("click", function (e) {
 		$("#searchTopic").show();
 		$("#sourceBar").material_select();
@@ -128,6 +137,10 @@
 
 	});
 
+/* END LISTENERS */	
+	
+	
+	
 function pairFind() {
 
 	newsSource1 = $("#sourceBar option:selected").val();
@@ -317,45 +330,45 @@ $("#showNews").on("click", function (e) {
 			}
 		}
 
-	// }).then(function (response){
+/*-- START BLOCK COMMENT
+	 }).then(function (response){
 
-	// 	var queryURL_FB1 = "http://webhose.io/filterWebContent?token=" + apiKeyFB + "&format=json&ts=1515290541502&sort=social.facebook.likes&q=%22" + newsTitle1 + "%22%20language%3Aenglish";
+	 	var queryURL_FB1 = "http://webhose.io/filterWebContent?token=" + apiKeyFB + "&format=json&ts=1515290541502&sort=social.facebook.likes&q=%22" + newsTitle1 + "%22%20language%3Aenglish";
 		
-	// 		$.ajax({
-	//         url: queryURL_FB1,
-	//         method: "GET"
-	//     }).done(function(response) {
-	// 		var results = response.posts;
+	 		$.ajax({
+	         url: queryURL_FB1,
+	         method: "GET"
+	     }).done(function(response) {
+	 		var results = response.posts;
 
-	// 		if(results != "")
-	// 		{
-	// 		console.log("news title 1  "  +newsTitle1);
-	// 		console.log("Likes: " + results[0].thread.social.facebook.likes);
+	 		if(results != "")
+	 		{
+	 		console.log("news title 1  "  +newsTitle1);
+	 		console.log("Likes: " + results[0].thread.social.facebook.likes);
+	 		var likeDiv=$("<div>");
+	 			likeDiv.addClass("likeDiv");
+	 			likeDiv.append("<p><i class='far fa-thumbs-up'></i>"+" "+results[0].thread.social.facebook.likes+" "+ "liked this</p>");
+	 			front1.append(likeDiv);
+	 			front1.append("</p><button class='toggle'>See Other News Stories</button>");
+	 			article1Div.prepend(front1);
 
-	// 		var likeDiv=$("<div>");
-	// 			likeDiv.addClass("likeDiv");
-	// 			likeDiv.append("<p><i class='far fa-thumbs-up'></i>"+" "+results[0].thread.social.facebook.likes+" "+ "liked this</p>");
-	// 			front1.append(likeDiv);
-	// 			front1.append("</p><button class='toggle'>See Other News Stories</button>");
-	// 			article1Div.prepend(front1);
+	 			}
+	 		else
+	 		{
+	 			console.log("content not found");
 
-	// 			}
-	// 		else
-	// 		{
-	// 			console.log("content not found");
+	 			var likeDiv=$("<div>");
+	 			likeDiv.addClass("likeDiv");
+	 			likeDiv.append("<p>Likes not Available</p>");
+	 			front1.append(likeDiv);
+	 			front1.append("</p><button class='toggle'>See Other News Stories</button>");
+	 			article1Div.prepend(front1);
+	 		}
 
-	// 			var likeDiv=$("<div>");
-	// 			likeDiv.addClass("likeDiv");
-	// 			likeDiv.append("<p>Likes not Available</p>");
-	// 			front1.append(likeDiv);
-	// 			front1.append("</p><button class='toggle'>See Other News Stories</button>");
-	// 			article1Div.prepend(front1);
-	// 		}
-
-	 //    }).fail(function (jqXHR, textStatus, errorThrown) {
-		// console.log("Error Message  " + textStatus);
-		// });
-
+	     }).fail(function (jqXHR, textStatus, errorThrown) {
+		 console.log("Error Message  " + textStatus);
+		 });
+END BLOCK COMMENT --*/
 
 	}).fail(function (jqXHR, textStatus, errorThrown) {
 		console.log("Error Message  " + textStatus);
@@ -437,45 +450,46 @@ $("#showNews").on("click", function (e) {
 			}
 		}
 
-	// }).then(function(response) {
+/*-- START BLOCK COMMENT
+	 }).then(function(response) {
 		
-	// 	var queryURL_FB2 = "http://webhose.io/filterWebContent?token=" + apiKeyFB + "&format=json&ts=1515290541502&sort=social.facebook.likes&q=%22" + newsTitle2 + "%22%20language%3Aenglish";
+	 	var queryURL_FB2 = "http://webhose.io/filterWebContent?token=" + apiKeyFB + "&format=json&ts=1515290541502&sort=social.facebook.likes&q=%22" + newsTitle2 + "%22%20language%3Aenglish";
 		
-	// 		$.ajax({
-	//         url: queryURL_FB2,
-	//         method: "GET"
-	//     }).done(function(response) {
-	// 		var results = response.posts;
+	 		$.ajax({
+	         url: queryURL_FB2,
+	         method: "GET"
+	     }).done(function(response) {
+	 		var results = response.posts;
 
-	// 		if(results != "")
-	// 		{
-	// 		console.log("news title 2  "  +newsTitle2);
-	// 		console.log("Likes: " + results[0].thread.social.facebook.likes);
+	 		if(results != "")
+	 		{
+	 		console.log("news title 2  "  +newsTitle2);
+	 		console.log("Likes: " + results[0].thread.social.facebook.likes);
 
-	// 		var likeDiv=$("<div>");
-	// 			likeDiv.addClass("likeDiv");
-	// 			likeDiv.append("<p><i class='far fa-thumbs-up'></i>"+" "+results[0].thread.social.facebook.likes+" "+ "liked this</p>");
-	// 			front2.append(likeDiv);
-	// 			front2.append("</p><button class='toggle'>See Other News Stories</button>");
-	// 			article2Div.prepend(front2);
+	 		var likeDiv=$("<div>");
+	 			likeDiv.addClass("likeDiv");
+	 			likeDiv.append("<p><i class='far fa-thumbs-up'></i>"+" "+results[0].thread.social.facebook.likes+" "+ "liked this</p>");
+	 			front2.append(likeDiv);
+	 			front2.append("</p><button class='toggle'>See Other News Stories</button>");
+	 			article2Div.prepend(front2);
 
-	// 			}
-	// 		else
-	// 		{
-	// 			console.log("content not found");
+	 			}
+	 		else
+	 		{
+	 			console.log("content not found");
 
-	// 			var likeDiv=$("<div>");
-	// 			likeDiv.addClass("likeDiv");
-	// 			likeDiv.append("<p>Likes not Available</p>");
-	// 			front2.append(likeDiv);
-	// 			front2.append("</p><button class='toggle'>See Other News Stories</button>");
-	// 			article2Div.prepend(front2);
-	// 		}
+	 			var likeDiv=$("<div>");
+	 			likeDiv.addClass("likeDiv");
+	 			likeDiv.append("<p>Likes not Available</p>");
+	 			front2.append(likeDiv);
+	 			front2.append("</p><button class='toggle'>See Other News Stories</button>");
+	 			article2Div.prepend(front2);
+	 		}
 			
-	 //    }).fail(function (jqXHR, textStatus, errorThrown) {
-		// console.log("Error Message  " + textStatus);
-		// });
-
+	     }).fail(function (jqXHR, textStatus, errorThrown) {
+		 console.log("Error Message  " + textStatus);
+		 });
+END BLOCK COMMENT --*/
     
 	}).fail(function (jqXHR, textStatus, errorThrown) {
 		console.log("Error Message  " + textStatus);
@@ -574,3 +588,5 @@ var chart = new CanvasJS.Chart("myChart", {
 	}]
 });
 chart.render();
+
+});
