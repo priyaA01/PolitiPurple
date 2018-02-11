@@ -85,7 +85,7 @@ h2 {
     height: 180px;
 }
 
-.flip-containerL, .flip-containerR{
+.flipContainerL, .flipContainerR{
     perspective: 1000px;
     width: 300px;
     height: 480px;
@@ -96,11 +96,11 @@ h2 {
 
 }
 
-.flip-containerL.hover .flipper{
+.flipContainerL.hover .flipper{
     transform: rotateY(180deg);
 }
 
-.flip-containerR.hover .flipper{
+.flipContainerR.hover .flipper{
     transform: rotateY(180deg);
 }
 
@@ -321,12 +321,12 @@ input, select {
 }
 
 .input-field input[type=text]:focus {
-     border-bottom: 1px solid purple !important;
-     box-shadow: 0 1px 0 0 purple !important;
+     border-bottom: 1px solid #301D6E !important;
+     box-shadow: 0 1px 0 0 #301D6E !important;
 }
 
 .#sourceBar option {
-     color: purple !important;
+     color: #301D6E !important;
 } 
 
 /*-- END MODAL CSS --*/

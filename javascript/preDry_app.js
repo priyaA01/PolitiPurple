@@ -106,105 +106,6 @@ function pairFind() {
 	}
 }
 
-// START NEW DRY ATTEMPT generic combined function =====================================================================================
-function getNewsAndLikes(queryURL, newsTitle, front, articleDiv, back) {
-	$.ajax({
-		url: queryURL,
-		method: "GET"
-	}).then(function (response) {
-
-		newsTitle= response.articles[0].title;
-		console.log(lean);
-		
-		console.log(" Response name  " + response.articles[0].source.name);
-		console.log(" Response title  " + response.articles[0].title);
-		console.log(" Response  description  " + response.articles[0].description);
-		console.log(" Response  url  " + response.articles[0].url);
-		console.log(" Response  imageurl  " + response.articles[0].urlToImage);
-		console.log(" Response  date  " + response.articles[0].publishedAt);
-
-
-		//this will append an left source to the left side and vice versa
-			
-			var pic= $("<img>");
-			pic.addClass("card-image");
-			var lowhalf=$("<div>");
-			lowhalf.addClass("card-content");
-			
-
-			pic.attr({"src": response.articles[0].urlToImage,"alt":"News Picture"});
-			front.html(pic);
-
-			lowhalf.append("<h3 class='card-title articleText'><a href="+response.articles[0].url+" "+
-				"target='_blank'>"+response.articles[0].title+
-				"</a></h3><h4 class='secondLine'> Published by"+" "+"<span id='sourceTag'>"+response.articles[0].source.name+"</span>"+
-				" "+"on"+" "+moment(response.articles[0].publishedAt).format("MM-DD-YYYY")+
-				"</h4><p class='card-text'>"+response.articles[0].description+"<p class='card-likes'>78,999&nbsp;<i class='far fa-thumbs-up'></i> liked this</p>" +
-				"</p><button class='btn toggle'>See Other News Stories</button>");
-			front.append(lowhalf);
-			articleDiv.prepend(front);
-
-
-		//different layout for next articles
-
-		for (var i = 1; i < 10; i++) {
-			if (response.articles[0].title != response.articles[i].title) {
-
-				var article1childDiv=$("<div>");
-				article1childDiv.addClass("otherArticles");
-				article1childDiv.append("<h3><a href="+response.articles[i].url+" "+
-				"target='_blank'>"+response.articles[i].title+"</a></h3>");
-				back.append(article1childDiv);
-				count++;
-			}
-			if(count===5)
-			{
-				count=1;
-				back.prepend("<h2>Other Articles on Your Topic</h2>");
-				back.append("<button class='btn toggle'>Return to Top Story</button>");
-			articleDiv.append(back);
-				break;
-			}
-		}
-/*-- MJ START BLOCK COMMENT --removed inline comments and added block comments
-	 }).then(function (response){
-	 	var queryURL_FB1 = "http://webhose.io/filterWebContent?token=" + apiKeyFB + "&format=json&ts=1515290541502&sort=social.facebook.likes&q=%22" + newsTitle + "%22%20language%3Aenglish";
-		
-	 		$.ajax({
-	         url: queryURL_FB1,
-	         method: "GET"
-	     }).done(function(response) {
-	 		var results = response.posts;
-	 		if(results != "")
-	 		{
-	 		console.log("news title 1  "  +newsTitle);
-	 		console.log("Likes: " + results[0].thread.social.facebook.likes);
-	 		var likeDiv=$("<div>");
-	 			likeDiv.addClass("likeDiv");
-	 			likeDiv.append("<p><i class='far fa-thumbs-up'></i>"+" "+results[0].thread.social.facebook.likes+" "+ "liked this</p>");
-	 			front.append(likeDiv);
-	 			front.append("</p><button class='toggle'>See Other News Stories</button>");
-	 			articleDiv.prepend(front);
-	 			}
-	 		else
-	 		{
-	 			console.log("content not found");
-	 			var likeDiv=$("<div>");
-	 			likeDiv.addClass("likeDiv");
-	 			likeDiv.append("<p>Likes not Available</p>");
-	 			front.append(likeDiv);
-	 			front.append("</p><button class='toggle'>See Other News Stories</button>");
-	 			articleDiv.prepend(front);
-	 		}
-	     }).fail(function (jqXHR, textStatus, errorThrown) {
-		 console.log("Error Message  " + textStatus);
-		 });
-MJ END BLOCK COMMENT --*/
-
-	})
-}
-// END NEW DRY ATTEMPT generic combined function =====================================================================================
-
 function queryAPI(newsSource1, newsSource2) {
 	// look at current date and set newsSource ranges to 1 month prior.
 	var from = moment().subtract(1, "months").format("YYYY-MM-DD");
@@ -247,7 +148,7 @@ function queryAPI(newsSource1, newsSource2) {
 	var back2=$("<div>");
 	back2.addClass("back card-content");
 
-/*	$.ajax({
+	$.ajax({
 		url: queryURL1,
 		method: "GET"
 	}).then(function (response) {
@@ -305,16 +206,43 @@ function queryAPI(newsSource1, newsSource2) {
 				break;
 			}
 		}
-// LOCATION: BLOCK COMMENT queryURL_FB1 
 
-	}) */
-	
-// NEW DRY ATTEMPT  == FUNCTION CALL 
-	getNewsAndLikes(queryURL1, newsTitle1, front1, article1Div, back1);
+/*-- START BLOCK COMMENT
+	 }).then(function (response){
+	 	var queryURL_FB1 = "http://webhose.io/filterWebContent?token=" + apiKeyFB + "&format=json&ts=1515290541502&sort=social.facebook.likes&q=%22" + newsTitle1 + "%22%20language%3Aenglish";
+		
+	 		$.ajax({
+	         url: queryURL_FB1,
+	         method: "GET"
+	     }).done(function(response) {
+	 		var results = response.posts;
+	 		if(results != "")
+	 		{
+	 		console.log("news title 1  "  +newsTitle1);
+	 		console.log("Likes: " + results[0].thread.social.facebook.likes);
+	 		var likeDiv=$("<div>");
+	 			likeDiv.addClass("likeDiv");
+	 			likeDiv.append("<p><i class='far fa-thumbs-up'></i>"+" "+results[0].thread.social.facebook.likes+" "+ "liked this</p>");
+	 			front1.append(likeDiv);
+	 			front1.append("</p><button class='toggle'>See Other News Stories</button>");
+	 			article1Div.prepend(front1);
+	 			}
+	 		else
+	 		{
+	 			console.log("content not found");
+	 			var likeDiv=$("<div>");
+	 			likeDiv.addClass("likeDiv");
+	 			likeDiv.append("<p>Likes not Available</p>");
+	 			front1.append(likeDiv);
+	 			front1.append("</p><button class='toggle'>See Other News Stories</button>");
+	 			article1Div.prepend(front1);
+	 		}
+	     }).fail(function (jqXHR, textStatus, errorThrown) {
+		 console.log("Error Message  " + textStatus);
+		 });
+END BLOCK COMMENT --*/
 
-/* -- MJ - I'm Having trouble getting the .fail to work inside or outside of combined generic function.  Since the .fails have several differences it seemed to make sense to try and build the function without them and then add them separately, but I haven't been able to get them to work yet.
-	
-	.fail(function (jqXHR, textStatus, errorThrown) {
+	}).fail(function (jqXHR, textStatus, errorThrown) {
 		console.log("Error Message  " + textStatus);
 		modal.css({
 			"display": "block"
@@ -342,9 +270,7 @@ function queryAPI(newsSource1, newsSource2) {
 		});
 		$("#userMsg").empty().append("No article found, try new search");
 	});
-END .fail COMMENT-OUT --*/
 
-/* START BLOCK COMMENTS - replaced with generic combined function
 	$.ajax({
 		url: queryURL2,
 		method: "GET"
@@ -395,7 +321,8 @@ END .fail COMMENT-OUT --*/
 				break;
 			}
 		}
-/*-- MJ START BLOCK COMMENT --removed inline comments and added block comments
+
+/*-- START BLOCK COMMENT
 	 }).then(function(response) {
 		
 	 	var queryURL_FB2 = "http://webhose.io/filterWebContent?token=" + apiKeyFB + "&format=json&ts=1515290541502&sort=social.facebook.likes&q=%22" + newsTitle2 + "%22%20language%3Aenglish";
@@ -430,13 +357,9 @@ END .fail COMMENT-OUT --*/
 	     }).fail(function (jqXHR, textStatus, errorThrown) {
 		 console.log("Error Message  " + textStatus);
 		 });
-	}) 
-END BLOCK COMMENT --*/	
-
-// NEW DRY ATTEMPT  == FUNCTION CALL 
-	getNewsAndLikes(queryURL2, newsTitle2, front2, article2Div, back2);
-/*	
-	.fail(function (jqXHR, textStatus, errorThrown) {
+END BLOCK COMMENT --*/
+    
+	}).fail(function (jqXHR, textStatus, errorThrown) {
 		console.log("Error Message  " + textStatus);
 		modal.css({
 			"display": "block"
@@ -458,7 +381,7 @@ END BLOCK COMMENT --*/
 		});
 		$("#userMsg").empty().append("No article found, try new search");
 	});
-*/
+
 if(lean==="left"){    
     $(".leftArticle").append(article1Div);
     $(".leftArticle").css("border-right", "2px solid #301D6E");
