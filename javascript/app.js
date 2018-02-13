@@ -371,6 +371,8 @@ if(lean==="left"){
     $(".buttonContainer").css("border-bottom", "1px solid #D0D0D0");
      $(".rightArticle").append(article2Div);
     lean="";
+	$('.flip-containerL').removeClass('hover');
+    $('.flip-containerR').removeClass('hover');
 }
 
 else if (lean==="right"){
@@ -381,6 +383,8 @@ else if (lean==="right"){
     article1Div.addClass("rightInfo");
     $(".rightArticle").append(article1Div);
     lean="";
+	$('.flip-containerL').removeClass('hover');
+    $('.flip-containerR').removeClass('hover');
 }
 }	
 	
