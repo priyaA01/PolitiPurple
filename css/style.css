@@ -1,91 +1,126 @@
-/* -- GENERAL CSS --*/
-* {
+*{
     box-sizing: border-box;
 }
+body{
+    font-family: 'Playfair Display', serif;
+}
 
-/* HEADER CSS */
-
-header {
+header{
     font-family: 'Abril Fatface', cursive;
-    background-color: #fff; /*#9C90C1;*/
+    background-color: #fff; 
     margin: 0 0 -10px 0;
     border-bottom: 4px solid #301D6E;
 }
 
-h1 { /* ADDED */
+h1 { 
     font-size: 4.2rem;
     line-height: 110%;
     margin: 5px 0 20px 0;
 }
 
-.headerRow { /* ADDED */
+.headerRow { 
 	margin-bottom: 0;
 }
 
-.lead {
-    background-color: #fff !important;  /*#9C90C1;*/
-    color: #301D6E !important;  
-    padding-bottom: 5px;
-}
-
 .red {
-    background-color: #fff !important;  /*#9C90C1;*/
+    background-color: #fff !important;  
     color: #FE0000 !important;
 }
 
 .blue {
-    background-color: #fff !important;  /*#9C90C1;*/
+    background-color: #fff !important; 
     color: #384BA7 !important;
 }
 
 .purple  {
-    background-color: #fff !important;  /*#9C90C1;*/
+    background-color: #fff !important; 
     color: #301D6E !important;
-    /*text-shadow: 2px 2px 10px #9C90C1; */
 }
 
-/*-- BODY CSS --*/
-
-body {
-    font-family: 'Playfair Display', serif;
+.lead {
+    background-color: #fff !important; 
+    color: #301D6E !important;  
+    padding-bottom: 5px;
+	font-size: 1.10em;
 }
 
-h2 {
+#currentTime {
+    font-size: 0.8em;
+}
+
+h2{
     font-size: 24px;
 }
 
+input, select{
+    width: 100%;
+    border-radius:5px;
+}
 .container{
     text-align: center
 }
 
+#userMsg{
+    font-weight: 900;
+    font-size: 24px;
+    margin-bottom:40px;
+}        
+#genderBox{
+    height: 30px;  
+}
+#sourceBar{
+    clear: both;
+    margin-top:1px;
+    height: 30px;
+}
+#showNews, #btn-ok{
+    margin: 0 auto;
+    margin-top: 10px;
+    font-family: 'Abril Fatface', cursive;
+}
+
+.dropdown-content li>span{
+    color: #000 !important;
+}
+
+.input-field input[type=text]:focus {
+     border-bottom: 1px solid #301D6E !important;
+     box-shadow: 0 1px 0 0 #301D6E !important;
+   }
+
+.#sourceBar option {
+     color: #301D6E !important;
+   }   
+
+/* body components ========================= */
+
 .toggle{
     position:absolute;
-    right:25%; /* 30% */
+    right:25%;
     bottom:0;
     font-size: 13px;
     line-height: 13px !important;
     margin: 5px;
     background-color: #9C90C1 !important;
-}
 
+}
 .articleContainer{
-    margin-top: 25px; /* 50px */
+    margin-top: 25px;
     margin-bottom: 20px;
 }
 
 .input-field{
     margin: 0 auto;
 }
-
-/*-- DYNAMIC DIVS --*/
+/* dynamic divs ========================= */
 
 
 .card-image{
-    width: 286px;
+    width: 286px; 
     height: 180px;
 }
 
-.flipContainerL, .flipContainerR{
+.flip-containerL, .flip-containerR{
     perspective: 1000px;
     width: 300px;
     height: 480px;
@@ -95,12 +130,11 @@ h2 {
     font-weight: 900;
 
 }
-
-.flipContainerL.hover .flipper{
+.flip-containerL.hover .flipper{
     transform: rotateY(180deg);
 }
 
-.flipContainerR.hover .flipper{
+.flip-containerR.hover .flipper{
     transform: rotateY(180deg);
 }
 
@@ -109,7 +143,6 @@ h2 {
     height: 460px;
     
 }
-
 .flipper {
     height: auto;
     transition: 0.6s;
@@ -136,10 +169,10 @@ h2 {
     
 }
 
-.card .card-content{ /* ADDED .card */
+.card .card-content{
     overflow: auto;
-	padding: 5px 24px 24px 24px; /* 5px */
-    border-radius: 0 0 2px 2px; /* ADDED */
+	padding: 5px 24px 24px 24px;
+    border-radius: 0 0 2px 2px;
 }
 
 .card-text{
@@ -166,9 +199,10 @@ h2 {
     font-size: 13px;
     text-align: center;
     line-height: 13px;
-    margin-top: 20px !important; /* 5px */
+    margin-top: 20px !important;
     color:  #3b5998 !important;
 }
+
 
 .secondLine{
     color:grey;
@@ -179,7 +213,8 @@ h2 {
     text-decoration: underline;
 }
 
-/*-- BUTTONS --*/
+/* buttons ========================= */
+
 #newSearchButton,#chartButton{
     display:none;            
     margin: auto;
@@ -189,21 +224,27 @@ h2 {
     background-color: #6F6FAC !important;
 }
 
+
+
 .btnBox{
     text-align: center;
 }
 
 .buttonContainer{
-    margin-top: 25px; /* 40px */
+    margin-top: 25px;
 }
 
-/*-- CHART --*/
+/* chart ========================= */
 
 .chartContainer{
     display:none;                
     height: 500px;
-	/*overflow: auto;*/
     text-align: center;
+}
+
+
+#myChart p a{
+    color: blue;
 }
 
 .chartContainer p{
@@ -217,19 +258,9 @@ h2 {
     border-radius: 5px;
     height: 400px !important;
     margin: auto;
-
 }
 
-#myChart p a{
-    color: blue;
-}
-
-#chartModal {
-	padding-top: 0;
-	padding-bottom: 0;
-}
-
-/*-- START MODAL CSS --*/
+/* START MODAL CSS =================== */
 
 .modal-overlay {
     display: none;
@@ -238,7 +269,7 @@ h2 {
     height: 100%;
     top: 0 !important;
     background-color: rgba(0, 0, 0, 0.4);
-    padding-top: 100px;
+    padding-top: 20px;
 }
 
 .modal-content-1 {
@@ -249,7 +280,7 @@ h2 {
     height: 400px;
 }
 
-/*-- MODAL CONTENT --*/
+/* Modal Content ========================= */
 
 .modal-content-2 {
     background-color: #fefefe;
@@ -259,9 +290,10 @@ h2 {
     height: 500px;
 }
 
-/*-- CLOSE BUTTON --*/
+/* The Close Button ========================= */
 
-.close, .optionalClose {
+.close,
+.optionalClose {
     color: #000;
     font-size: 20px;
     font-weight: bold;
@@ -270,13 +302,6 @@ h2 {
    /* margin: 0 auto; */
     /*  margin-top: 10px; */
     font-family: 'Abril Fatface', cursive;
-}
-
-/* INITAL MODAL CSS */
-
-input, select {
-    width: 100%;
-    border-radius:5px;
 }
 
 .modalCont2 {
@@ -294,44 +319,7 @@ input, select {
     cursor: pointer;
 }
 
-#userMsg{
-    font-weight: 900;
-    font-size: 24px;
-    margin-bottom:40px;
-}
-
-#genderBox{
-    height: 30px;  
-}
-
-#sourceBar{
-    clear: both;
-    margin-top:1px;
-    height: 30px;
-}
-
-#showNews, #btn-ok{
-    margin: 0 auto;
-    margin-top: 10px;
-    font-family: 'Abril Fatface', cursive;
-}
-
-.dropdown-content li>span{
-    color: #000 !important;
-}
-
-.input-field input[type=text]:focus {
-     border-bottom: 1px solid #301D6E !important;
-     box-shadow: 0 1px 0 0 #301D6E !important;
-}
-
-.#sourceBar option {
-     color: #301D6E !important;
-} 
-
-/*-- END MODAL CSS --*/
-
-/*-- STICKY FOOTER --*/
+/* Sticky Footer ========================= */
 
 footer {
     clear: both;
@@ -340,12 +328,13 @@ footer {
     bottom: 0;
     margin: 0;
     width: 100;
-    padding: 2.5em;
+    padding: 1em 2.5em 2.5em 2.5em;
     text-align: center;
     font-size: 0.8em;
     border-top: 2px solid #9C90C1;
     background-color: #301D6E;
     color: #fff;
+	
 }
 
 html, body {
@@ -353,13 +342,27 @@ html, body {
   margin: 0;
 }
 
+.attribution {
+	font-size: 80%;
+	padding-top: 8px;
+}
+
+.attrib {
+	color: #ddd;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .wrapper {
   min-height: 100%;
   margin-bottom: -50px;
 }
 
-footer, .push {
+footer {
   height: 50px;
 }
 
-/*-- END CSS --*/
+.push {
+  height: 50px;
+}
+/*--------------*/
+/*--------------*/

@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Politi-Purple</title>
-	<link rel="stylesheet" href="css/reset.css">
-	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-	<link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Playfair+Display:400,900" rel="stylesheet">
-	<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-	<link rel="stylesheet" href="css/style.css">
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Politi-Purple</title>
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+		<link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Playfair+Display:400,900" rel="stylesheet">
+		<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+		<link rel="stylesheet" href="css/style.css">
+	</head>
 	<body>
 		<div class="wrapper">
 			<!--  MODALS (2): 1. Initial: contains subject field, news source selector, age, and gender fields.  If no results or no fields filled in, it also contains a notice to try another search.  2. Chart: this modal displays the news sources used for this project and shows where they fall on the political spectrum, from liberal to conservative. -->
-			<!-- MODAL: Initial -->
+			<!-- MODAL: Initial -->	
 			<div id="modal1" class="modal modal-overlay">
 				<div class="modal-content modal-content-1">
 					<div class="container modalCont">
@@ -66,8 +66,8 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<!-- MODAL: Chart -->
+			</div>	
+			<!-- MODAL: Chart -->		
 			<div id="chartModal" class="modal modal-overlay">
 				<div class="modal-content-2">
 					<div class="container chartContainer modalCont2">
@@ -76,8 +76,8 @@
 						<p> The goal of this source pair was to offer a source of equal content level and equidistant from the neutral reporting. The pairing and chart are based on Media Bias Chart and analysis. For more information and more ranking of sources, <a href="http://www.allgeneralizationsarefalse.com/the-chart-version-3-0-what-exactly-are-we-reading/" target="_blank">continue reading here.</a></p>
 					</div>
 				</div>
-			</div>
-			<!-- HEADER -->
+			</div>		
+			<!-- HEADER -->		
 			<header>
 				<div class="container">
 					<div class="row headerRow">
@@ -87,14 +87,15 @@
 						<div class="col s8">
 							<h1 class="display-4"><span class="red">P</span><span class="blue">o</span><span class="red">l</span><span class="blue">i</span><span class="red">t</span><span class="blue">i</span><span class="purple">Purple</span></h1>
 							<p class="lead">For every news story there's an equal and opposite news story</p>
+							<p class="lead"><span id="currentTime"></span></p>
 						</div>    
 						<div class="col s2">
 							<img src="images/elephant.png">
 						</div> 
 					</div>
 				</div>
-			</header>
-			<!-- PAGE BUTTONS (2): 1. New Search button launches the initial modal so a new search can be conducted. 2. Explanation button opens the chart modal. -->
+			</header>		
+			<!-- PAGE BUTTONS (2): 1. New Search button launches the initial modal so a new search can be conducted. 2. Explanation button opens the chart modal. -->		
 			<div class="container buttonContainer">
 				<div class="row">
 					<div class="col s6 btnBox">
@@ -104,20 +105,21 @@
 						<button type="button" class="btn" id="chartButton">Why Am I Seeing These Sources?</button>
 					</div>
 				</div>
-			</div>
-			<!-- ARTICLE CONTAINERS (2): 1. leftArticle populates based on the users entered subject and selected news source.  The top articles are ranked based on the articles Facebook likes.  2. rightArticle populates based on the users entered subject BUT from an "equal and opposite" news source paired against their chosen news source through the app.js file.  Both containers are populated with the articles image, title, byline, text, and Facebook Likes.  Below each article is a button that flips the cards over to show additional news stories on the same subject from the same paired news sources. -->
+			</div>		
+			<!-- ARTICLE CONTAINERS (2): 1. leftArticle populates based on the users entered subject and selected news source.  The top articles are ranked based on the articles Facebook likes.  2. rightArticle populates based on the users entered subject BUT from an "equal and opposite" news source paired against their chosen news source through the app.js file.  Both containers are populated with the articles image, title, byline, text, and Facebook Likes.  Below each article is a button that flips the cards over to show additional news stories on the same subject from the same paired news sources. -->		
 			<div class="container articleContainer">
 				<div class="row">
-					<div class="col s12 m6 flipContainerL leftArticle"></div>
-					<div class="col s12 m6 flipContainerR rightArticle"></div>
+					<div class="col s12 m6 flip-containerL leftArticle"></div>
+					<div class="col s12 m6 flip-containerR rightArticle"></div>
 				</div>
-			</div>
-			<!-- This DIV is used in conjunction with CSS to aide the footer in being sticky. -->
+			</div>		
+			<!-- This DIV is used in conjunction with CSS to aide the footer in being sticky. -->		
 			<div class="push"></div>
 		</div>
 		<!-- FOOTER -->
 		<footer>
-			&copy; Copyright PolitiPurple 2018
+			<p>&copy; Copyright PolitiPurple 2018</p>
+			<p class="attribution">Powered by <a href="https://newsapi.org/" class="attrib">NewsAPI.org</a> and <a href="https://webhose.io/" class="attrib">webhose.io</a></p>
 		</footer>
 		<!-- JAVASCRIPT -->
 		<!-- DOM and CSS related JS -->
@@ -130,6 +132,6 @@
 		<!-- time related js -->
 		<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>	
 		<!-- local js -->
-		<script src="javascript/app.js"></script>
+		<script src="javascript/app.js"></script>	
 	</body>
 </html>

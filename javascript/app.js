@@ -1,98 +1,100 @@
 // INITITIALIZE FIREBASE 
 
-	var config = {
-		apiKey: "AIzaSyDfT3yvJCDry2s7DWgXg72149BFelnxE6c",
-		authDomain: "politipurple.firebaseapp.com",
-		databaseURL: "https://politipurple.firebaseio.com",
-		projectId: "politipurple",
-		storageBucket: "",
-		messagingSenderId: "550902399608"
-	};
+var config = {
+	apiKey: "AIzaSyDfT3yvJCDry2s7DWgXg72149BFelnxE6c",
+	authDomain: "politipurple.firebaseapp.com",
+	databaseURL: "https://politipurple.firebaseio.com",
+	projectId: "politipurple",
+	storageBucket: "",
+	messagingSenderId: "550902399608"
+};
+firebase.initializeApp(config);
 
-	firebase.initializeApp(config);
-
-	var database=firebase.database();
+var database=firebase.database();
 
 // GLOGAL VARIABLES
 
-	var apiKey = "52d1c20852064e27ad9777ae8ab088d7";
-	var apiKeyFB = "4d9c7a74-a2a5-497c-8c59-7dd2f5113ce3";
-	var newsSubject = "";
-	var newsSource1 = "";
-	var newsSource2 = "";
-	var newsTitle1="";
-	var newsTitle2="";
-	var age="";
-	var gender="";
-	var lean="";
-	var modal = $("#modal1");
-	var chartModal = $("#chartModal");
-	var article1Div = $("<div>");
-	var article2Div = $("<div>");
+var apiKey = "52d1c20852064e27ad9777ae8ab088d7";
+var apiKeyFB = "4d9c7a74-a2a5-497c-8c59-7dd2f5113ce3";
+var newsSubject = "";
+var newsSource1 = "";
+var newsSource2 = "";
+var newsTitle1="";
+var newsTitle2="";
+var age="";
+var gender="";
+var lean="";
+var modal = $("#modal1");
+var chartModal = $("#chartModal");
+var article1Div = $("<div>");
+var article2Div = $("<div>");
 
 // OBJECT newsSourcePair: pairings based on team agreement based on info from the article located at:  http://www.allgeneralizationsarefalse.com/the-chart-version-3-0-what-exactly-are-we-reading/
-	
-	var newsSourcePair = {
-		"pair1": ["the-washington-post", "time"],
-		"pair2": ["cnn", "the-economist"],
-		"pair3": ["the-guardian-uk", "the-hill"],
-		"pair4": ["the-huffington-post", "the-wall-street-journal"],
-		"pair5": ["msnbc", "fox-news"],
-		"pair6": ["buzzfeed", "breitbart-news"]
-	}
+var newsSourcePair = {
+	"pair1": ["the-washington-post", "time"],
+	"pair2": ["cnn", "the-economist"],
+	"pair3": ["the-guardian-uk", "the-hill"],
+	"pair4": ["the-huffington-post", "the-wall-street-journal"],
+	"pair5": ["msnbc", "fox-news"],
+	"pair6": ["buzzfeed", "breitbart-news"]
+}
 
 //ARRAY of pairings
+var pair = ["pair1", "pair2", "pair3", "pair4", "pair5", "pair6"];
+
+//OBJECT Chart uses data below to plot location of the news source data points across liberal to conservative spectrum.	chart is then rendered.
+
+var chart = new CanvasJS.Chart("myChart", {
+	animationEnabled: false,
+	title:{
+		text: "See where your Sources Lie",
+	},
+	axisX: {
+		title:"Lean: Liberal to Conservative Bias",
+		minimum:0,
+		maximum:14
+	},
+	axisY: {
+		title:"Quality: Inaccurate Info to Original Fact Reporting"
+	},
+	data: [{
+		type: "bubble",
+		toolTipContent: "<b>{name}</b>",
+		color:"rgba(255,12,32,.5)",
+		dataPoints: [
+			{ x: 7.5, y: 7.1,z: 10, name: "Time" },
+			{ x: 7.9, y: 6.4,z: 10, name: "The Economist" },
+			{ x: 9, y: 7.5,z: 10, name: "The Hill" },
+			{ x: 8.4, y: 7.3,z: 10, name: "Wall Street Journal" },
+			{ x: 11.5, y: 2,z: 10, name: "Fox News" },
+			{ x: 12.1, y: 1,z: 10, name: "Breritbart News" }
+		]
+	},
+	{
+		type: "bubble",
+		toolTipContent: "<b>{name}</b>",
+		color:"rgba(12,143,221,.2)",
+		dataPoints: [
+			{ x: 6, y: 7.1,z: 10, name: "Washington Post" },
+			{ x: 6.2, y: 4.1,z: 10, name: "CNN" },
+			{ x: 6, y: 6.8,z: 10, name: "The Guardian" },
+			{ x: 3.2, y: 3.8,z: 10, name: "Huffington Post" },
+			{ x: 4.1, y: 4.5,z: 10, name: "MSNBC" },
+			{ x: 4, y: 3.6,z: 10, name: "Buzzfeed News" },
+		]
+	}]
+});
+
+chart.render();	
 	
-	var pair = ["pair1", "pair2", "pair3", "pair4", "pair5", "pair6"];
-
-//OBJECT Chart uses data below to plot location of the news source data points across liberal to conservative spectrum.
-
-	var chart = new CanvasJS.Chart("myChart", {
-		animationEnabled: true,
-		title:{
-			text: "See where your Sources Lie",
-		},
-		axisX: {
-			title:"Lean: Liberal to Conservative Bias",
-			minimum:0,
-			maximum:14
-		},
-		axisY: {
-			title:"Quality: Inaccurate Info to Original Fact Reporting"
-		},
-		data: [{
-			type: "bubble",
-			toolTipContent: "<b>{name}</b>",
-			color:"rgba(255,12,32,.5)",
-			dataPoints: [
-				{ x: 7.5, y: 7.1,z: 10, name: "Time" },
-				{ x: 7.9, y: 6.4,z: 10, name: "The Economist" },
-				{ x: 9, y: 7.5,z: 10, name: "The Hill" },
-				{ x: 8.4, y: 7.3,z: 10, name: "Wall Street Journal" },
-				{ x: 11.5, y: 2,z: 10, name: "Fox News" },
-				{ x: 12.1, y: 1,z: 10, name: "Breritbart News" }
-			]
-		},
-		{
-			type: "bubble",
-			toolTipContent: "<b>{name}</b>",
-			color:"rgba(12,143,221,.2)",
-			dataPoints: [
-				{ x: 6, y: 7.1,z: 10, name: "Washington Post" },
-				{ x: 6.2, y: 4.1,z: 10, name: "CNN" },
-				{ x: 6, y: 6.8,z: 10, name: "The Guardian" },
-				{ x: 3.2, y: 3.8,z: 10, name: "Huffington Post" },
-				{ x: 4.1, y: 4.5,z: 10, name: "MSNBC" },
-				{ x: 4, y: 3.6,z: 10, name: "Buzzfeed News" },
-			]
-		}]
-	});	
+// START FUNCTIONS ====================================	
 	
-// START FUNCTIONS	
-
 function pairFind() {
+
 	newsSource1 = $("#sourceBar option:selected").val();
+
 	//adding left and right
+
 	for (var i = 0, j = 0; i < pair.length; i++) {
 		if (newsSourcePair[pair[i]][j] == newsSource1) {
 			newsSource2 = newsSourcePair[pair[i]][j + 1];
@@ -104,120 +106,46 @@ function pairFind() {
 			queryAPI(newsSource1, newsSource2);
 		}
 	}
-}
+}	
 
-// START NEW DRY ATTEMPT generic combined function =====================================================================================
-function getNewsAndLikes(queryURL, newsTitle, front, articleDiv, back) {
-	$.ajax({
-		url: queryURL,
-		method: "GET"
-	}).then(function (response) {
+// START COMBINED Function
 
-		newsTitle= response.articles[0].title;
-		console.log(lean);
-		
-		console.log(" Response name  " + response.articles[0].source.name);
-		console.log(" Response title  " + response.articles[0].title);
-		console.log(" Response  description  " + response.articles[0].description);
-		console.log(" Response  url  " + response.articles[0].url);
-		console.log(" Response  imageurl  " + response.articles[0].urlToImage);
-		console.log(" Response  date  " + response.articles[0].publishedAt);
+function newsBuilder(response, back, count, articleDiv) {
+	//different layout for next articles
 
+	for (var i = 1; i < 10; i++) {
+		if (response.articles[0].title != response.articles[i].title) {
 
-		//this will append an left source to the left side and vice versa
-			
-			var pic= $("<img>");
-			pic.addClass("card-image");
-			var lowhalf=$("<div>");
-			lowhalf.addClass("card-content");
-			
-
-			pic.attr({"src": response.articles[0].urlToImage,"alt":"News Picture"});
-			front.html(pic);
-
-			lowhalf.append("<h3 class='card-title articleText'><a href="+response.articles[0].url+" "+
-				"target='_blank'>"+response.articles[0].title+
-				"</a></h3><h4 class='secondLine'> Published by"+" "+"<span id='sourceTag'>"+response.articles[0].source.name+"</span>"+
-				" "+"on"+" "+moment(response.articles[0].publishedAt).format("MM-DD-YYYY")+
-				"</h4><p class='card-text'>"+response.articles[0].description+"<p class='card-likes'>78,999&nbsp;<i class='far fa-thumbs-up'></i> liked this</p>" +
-				"</p><button class='btn toggle'>See Other News Stories</button>");
-			front.append(lowhalf);
-			articleDiv.prepend(front);
-
-
-		//different layout for next articles
-
-		for (var i = 1; i < 10; i++) {
-			if (response.articles[0].title != response.articles[i].title) {
-
-				var article1childDiv=$("<div>");
-				article1childDiv.addClass("otherArticles");
-				article1childDiv.append("<h3><a href="+response.articles[i].url+" "+
-				"target='_blank'>"+response.articles[i].title+"</a></h3>");
-				back.append(article1childDiv);
-				count++;
-			}
-			if(count===5)
-			{
-				count=1;
-				back.prepend("<h2>Other Articles on Your Topic</h2>");
-				back.append("<button class='btn toggle'>Return to Top Story</button>");
-			articleDiv.append(back);
-				break;
-			}
+			var articlechildDiv=$("<div>");
+			articlechildDiv.addClass("otherArticles");
+			articlechildDiv.append("<h3><a href=" + response.articles[i].url + " " + "target='_blank'>" + response.articles[i].title + "</a></h3>");
+			back.append(articlechildDiv);
+			count++;
 		}
-/*-- MJ START BLOCK COMMENT --removed inline comments and added block comments
-	 }).then(function (response){
-	 	var queryURL_FB1 = "http://webhose.io/filterWebContent?token=" + apiKeyFB + "&format=json&ts=1515290541502&sort=social.facebook.likes&q=%22" + newsTitle + "%22%20language%3Aenglish";
-		
-	 		$.ajax({
-	         url: queryURL_FB1,
-	         method: "GET"
-	     }).done(function(response) {
-	 		var results = response.posts;
-	 		if(results != "")
-	 		{
-	 		console.log("news title 1  "  +newsTitle);
-	 		console.log("Likes: " + results[0].thread.social.facebook.likes);
-	 		var likeDiv=$("<div>");
-	 			likeDiv.addClass("likeDiv");
-	 			likeDiv.append("<p><i class='far fa-thumbs-up'></i>"+" "+results[0].thread.social.facebook.likes+" "+ "liked this</p>");
-	 			front.append(likeDiv);
-	 			front.append("</p><button class='toggle'>See Other News Stories</button>");
-	 			articleDiv.prepend(front);
-	 			}
-	 		else
-	 		{
-	 			console.log("content not found");
-	 			var likeDiv=$("<div>");
-	 			likeDiv.addClass("likeDiv");
-	 			likeDiv.append("<p>Likes not Available</p>");
-	 			front.append(likeDiv);
-	 			front.append("</p><button class='toggle'>See Other News Stories</button>");
-	 			articleDiv.prepend(front);
-	 		}
-	     }).fail(function (jqXHR, textStatus, errorThrown) {
-		 console.log("Error Message  " + textStatus);
-		 });
-MJ END BLOCK COMMENT --*/
-
-	})
+		if(count===5)
+		{
+			count=1;
+			back.prepend("<h2>Other Articles on Your Topic</h2>");
+			back.append("<button class='btn toggle'>Return to Top Story</button>");
+			articleDiv.append(back);
+			break;
+		}
+	}
 }
-// END NEW DRY ATTEMPT generic combined function =====================================================================================
+
+
+// END COMBINED Function
 
 function queryAPI(newsSource1, newsSource2) {
-	// look at current date and set newsSource ranges to 1 month prior.
 	var from = moment().subtract(1, "months").format("YYYY-MM-DD");
 	var to = moment().format("YYYY-MM-DD");
 	var count=1;
 
-	console.log(from);
-	console.log(to);
-
-	//https://newsapi.org/v2/everything?q="+newsSubject+"&sources=cnn&apiKey=52d1c20852064e27ad9777ae8ab088d7
-	console.log(newsSubject)
-	console.log("news Source 1   " + newsSource1);
-	console.log("news source 2   " + newsSource2);
+//	console.log(from);
+//	console.log(to);
+//	console.log(newsSubject)
+//	console.log("news Source 1   " + newsSource1);
+//	console.log("news source 2   " + newsSource2);
 
 	$(article1Div).html("");
     $(article2Div).html("");
@@ -247,75 +175,77 @@ function queryAPI(newsSource1, newsSource2) {
 	var back2=$("<div>");
 	back2.addClass("back card-content");
 
-/*	$.ajax({
+	$.ajax({
 		url: queryURL1,
 		method: "GET"
 	}).then(function (response) {
 
 		newsTitle1= response.articles[0].title;
-		console.log(lean);
-		
-		console.log(" Response name  " + response.articles[0].source.name);
-		console.log(" Response title  " + response.articles[0].title);
-		console.log(" Response  description  " + response.articles[0].description);
-		console.log(" Response  url  " + response.articles[0].url);
-		console.log(" Response  imageurl  " + response.articles[0].urlToImage);
-		console.log(" Response  date  " + response.articles[0].publishedAt);
+//		console.log(lean);	
+//		console.log(" Response name  " + response.articles[0].source.name);
+//		console.log(" Response title  " + response.articles[0].title);
+//		console.log(" Response  description  " + response.articles[0].description);
+//		console.log(" Response  url  " + response.articles[0].url);
+//		console.log(" Response  imageurl  " + response.articles[0].urlToImage);
+//		console.log(" Response  date  " + response.articles[0].publishedAt);
 
 
 		//this will append an left source to the left side and vice versa
-			
-			var pic= $("<img>");
-			pic.addClass("card-image");
-			var lowhalf=$("<div>");
-			lowhalf.addClass("card-content");
-			
 
-			pic.attr({"src": response.articles[0].urlToImage,"alt":"News Picture"});
-			front1.html(pic);
+		var pic= $("<img>");
+		pic.addClass("card-image");
+		var lowhalf=$("<div>");
+		lowhalf.addClass("card-content");
+		pic.attr({"src": response.articles[0].urlToImage,"alt":"News Picture"});
+		front1.html(pic);
+		lowhalf.append("<h3 class='card-title articleText'><a href="+response.articles[0].url+" "+
+			"target='_blank'>"+response.articles[0].title+
+			"</a></h3><h4 class='secondLine'> Published by"+" "+"<span id='sourceTag'>"+response.articles[0].source.name+"</span>"+
+			" "+"on"+" "+moment(response.articles[0].publishedAt).format("MM-DD-YYYY")+
+			"</h4><p class='card-text'>"+response.articles[0].description+"<p class='card-likes'>78,999&nbsp;<i class='far fa-thumbs-up'></i> liked this</p>" +
+			"</p><button class='btn toggle'>See Other News Stories</button>");
+		front1.append(lowhalf);
+		article1Div.prepend(front1);
 
-			lowhalf.append("<h3 class='card-title articleText'><a href="+response.articles[0].url+" "+
-				"target='_blank'>"+response.articles[0].title+
-				"</a></h3><h4 class='secondLine'> Published by"+" "+"<span id='sourceTag'>"+response.articles[0].source.name+"</span>"+
-				" "+"on"+" "+moment(response.articles[0].publishedAt).format("MM-DD-YYYY")+
-				"</h4><p class='card-text'>"+response.articles[0].description+"<p class='card-likes'>78,999&nbsp;<i class='far fa-thumbs-up'></i> liked this</p>" +
-				"</p><button class='btn toggle'>See Other News Stories</button>");
-			front1.append(lowhalf);
-			article1Div.prepend(front1);
-
-
-		//different layout for next articles
-
-		for (var i = 1; i < 10; i++) {
-			if (response.articles[0].title != response.articles[i].title) {
-
-				var article1childDiv=$("<div>");
-				article1childDiv.addClass("otherArticles");
-				article1childDiv.append("<h3><a href="+response.articles[i].url+" "+
-				"target='_blank'>"+response.articles[i].title+"</a></h3>");
-				back1.append(article1childDiv);
-				count++;
-			}
-			if(count===5)
-			{
-				count=1;
-				back1.prepend("<h2>Other Articles on Your Topic</h2>");
-				back1.append("<button class='btn toggle'>Return to Top Story</button>");
-			article1Div.append(back1);
-				break;
-			}
-		}
-// LOCATION: BLOCK COMMENT queryURL_FB1 
-
-	}) */
-	
-// NEW DRY ATTEMPT  == FUNCTION CALL 
-	getNewsAndLikes(queryURL1, newsTitle1, front1, article1Div, back1);
-
-/* -- MJ - I'm Having trouble getting the .fail to work inside or outside of combined generic function.  Since the .fails have several differences it seemed to make sense to try and build the function without them and then add them separately, but I haven't been able to get them to work yet.
-	
-	.fail(function (jqXHR, textStatus, errorThrown) {
-		console.log("Error Message  " + textStatus);
+// NEW FUNC CALL 			
+		newsBuilder(response, back1, count, article1Div);
+		
+/*-- START BLOCK COMMENT
+	 }).then(function (response){
+	 	var queryURL_FB1 = "http://webhose.io/filterWebContent?token=" + apiKeyFB + "&format=json&ts=1515290541502&sort=social.facebook.likes&q=%22" + newsTitle1 + "%22%20language%3Aenglish";
+		
+	 		$.ajax({
+	         url: queryURL_FB1,
+	         method: "GET"
+	     }).done(function(response) {
+	 		var results = response.posts;
+	 		if(results != "")
+	 		{
+	 		console.log("news title 1  "  +newsTitle1);
+	 		console.log("Likes: " + results[0].thread.social.facebook.likes);
+	 		var likeDiv=$("<div>");
+	 			likeDiv.addClass("likeDiv");
+	 			likeDiv.append("<p><i class='far fa-thumbs-up'></i>"+" "+results[0].thread.social.facebook.likes+" "+ "liked this</p>");
+	 			front1.append(likeDiv);
+	 			front1.append("</p><button class='toggle'>See Other News Stories</button>");
+	 			article1Div.prepend(front1);
+	 			}
+	 		else
+	 		{
+	 			console.log("content not found");
+	 			var likeDiv=$("<div>");
+	 			likeDiv.addClass("likeDiv");
+	 			likeDiv.append("<p>Likes not Available</p>");
+	 			front1.append(likeDiv);
+	 			front1.append("</p><button class='toggle'>See Other News Stories</button>");
+	 			article1Div.prepend(front1);
+	 		}
+	     }).fail(function (jqXHR, textStatus, errorThrown) {
+		 console.log("Error Message  " + textStatus);
+		 });
+END BLOCK COMMENT --*/
+	}).fail(function (jqXHR, textStatus, errorThrown) {
+//		console.log("Error Message  " + textStatus);
 		modal.css({
 			"display": "block"
 		});
@@ -342,60 +272,41 @@ function queryAPI(newsSource1, newsSource2) {
 		});
 		$("#userMsg").empty().append("No article found, try new search");
 	});
-END .fail COMMENT-OUT --*/
 
-/* START BLOCK COMMENTS - replaced with generic combined function
 	$.ajax({
 		url: queryURL2,
 		method: "GET"
 	}).then(function (response) {
 		newsTitle2= response.articles[0].title;
-		console.log(" Response name  " + response.articles[0].source.name);
-		console.log(" Response title  " + response.articles[0].title);
-		console.log(" Response  description  " + response.articles[0].description);
-		console.log(" Response  url  " + response.articles[0].url);
-		console.log(" Response  imageurl  " + response.articles[0].urlToImage);
-		console.log(" Response  date  " + response.articles[0].publishedAt);
+//		console.log(" Response name  " + response.articles[0].source.name);
+//		console.log(" Response title  " + response.articles[0].title);
+//		console.log(" Response  description  " + response.articles[0].description);
+//		console.log(" Response  url  " + response.articles[0].url);
+//		console.log(" Response  imageurl  " + response.articles[0].urlToImage);
+//		console.log(" Response  date  " + response.articles[0].publishedAt);
 
+		var pic= $("<img>");
+		pic.addClass("card-image");
+		var lowhalf=$("<div>");
+		lowhalf.addClass("card-content");
+		
 
-			var pic= $("<img>");
-			pic.addClass("card-image");
-			var lowhalf=$("<div>");
-			lowhalf.addClass("card-content");
-			
+		pic.attr({"src": response.articles[0].urlToImage,"alt":"News Picture"});
+		front2.html(pic);
 
-			pic.attr({"src": response.articles[0].urlToImage,"alt":"News Picture"});
-			front2.html(pic);
-
-			lowhalf.append("<h3 class='card-title articleText'><a href="+response.articles[0].url+" "+
-				"target='_blank'>"+response.articles[0].title+
-				"</a></h3><h4 class='secondLine'> Published by"+" "+"<span id='sourceTag'>"+response.articles[0].source.name+"</span>"+
-				" "+"on"+" "+moment(response.articles[0].publishedAt).format("MM-DD-YYYY")+
-				"</h4><p class='card-text'>"+response.articles[0].description+"<p class='card-likes'>78,999&nbsp;<i class='far fa-thumbs-up'></i> liked this</p>"+
-				"</p><button class='btn toggle'>See Other News Stories</button>");
-			front2.append(lowhalf);
-			article2Div.append(front2);
-
-		for (var i = 1; i < 10; i++) {
-			if (response.articles[0].title != response.articles[i].title) {
-
-				var article2childDiv=$("<div>");
-				article2childDiv.addClass("otherArticles");
-				article2childDiv.append("<h3><a href="+response.articles[i].url+" "+
-				"target='_blank'>"+response.articles[i].title+"</a></h3>");
-				back2.append(article2childDiv);
-				count++;
-			}
-			if(count===5)
-			{
-				count=1;
-				back2.prepend("<h2>Other Articles on Your Topic</h2>");
-				back2.append("<button class='btn toggle'>Return to Top Story</button>");
-			article2Div.append(back2);
-				break;
-			}
-		}
-/*-- MJ START BLOCK COMMENT --removed inline comments and added block comments
+		lowhalf.append("<h3 class='card-title articleText'><a href="+response.articles[0].url+" "+
+			"target='_blank'>"+response.articles[0].title+
+			"</a></h3><h4 class='secondLine'> Published by"+" "+"<span id='sourceTag'>"+response.articles[0].source.name+"</span>"+
+			" "+"on"+" "+moment(response.articles[0].publishedAt).format("MM-DD-YYYY")+
+			"</h4><p class='card-text'>"+response.articles[0].description+"<p class='card-likes'>78,999&nbsp;<i class='far fa-thumbs-up'></i> liked this</p>"+
+			"</p><button class='btn toggle'>See Other News Stories</button>");
+		front2.append(lowhalf);
+		article2Div.append(front2);
+		
+// NEW FUNC CALL 			
+		newsBuilder(response, back2, count, article2Div);
+					
+/*-- START BLOCK COMMENT
 	 }).then(function(response) {
 		
 	 	var queryURL_FB2 = "http://webhose.io/filterWebContent?token=" + apiKeyFB + "&format=json&ts=1515290541502&sort=social.facebook.likes&q=%22" + newsTitle2 + "%22%20language%3Aenglish";
@@ -430,14 +341,9 @@ END .fail COMMENT-OUT --*/
 	     }).fail(function (jqXHR, textStatus, errorThrown) {
 		 console.log("Error Message  " + textStatus);
 		 });
-	}) 
-END BLOCK COMMENT --*/	
-
-// NEW DRY ATTEMPT  == FUNCTION CALL 
-	getNewsAndLikes(queryURL2, newsTitle2, front2, article2Div, back2);
-/*	
-	.fail(function (jqXHR, textStatus, errorThrown) {
-		console.log("Error Message  " + textStatus);
+END BLOCK COMMENT --*/
+	}).fail(function (jqXHR, textStatus, errorThrown) {
+//		console.log("Error Message  " + textStatus);
 		modal.css({
 			"display": "block"
 		});
@@ -458,7 +364,7 @@ END BLOCK COMMENT --*/
 		});
 		$("#userMsg").empty().append("No article found, try new search");
 	});
-*/
+
 if(lean==="left"){    
     $(".leftArticle").append(article1Div);
     $(".leftArticle").css("border-right", "2px solid #301D6E");
@@ -476,37 +382,51 @@ else if (lean==="right"){
     $(".rightArticle").append(article1Div);
     lean="";
 }
-}
-
-// END FUNCTIONS	
+}	
 	
-// START PAGE LOAD: Upon page load create and display initial modal so the user can enter a subject, select a news source, and optionally provide their age and gender information. A notice is also created for when no results are returned or if no required fields contain data.
+// END FUNCTIONS ====================================
+	
+// START PAGE LOAD: Upon page load create and display initial modal so the user can enter a subject, select a news source, and optionally provide their age and gender information. A notice is also created for when no results are returned or if no required fields contain data.	
+	
+	var datetime = null,
+			date = null;
 
-$( document ).ready(function() {
-	modal.css({
-		"display": "block"
-	});
- 	$('select').material_select();
+	var update = function() {
+		date = moment(new Date())
+		datetime.html(date.format('dddd, MMMM DD, YYYY'));
+	};	
+	datetime = $("#currentTime");
+	update();
+	
+	$(document).ready(function () {
+		// $(".dropdown-content>li>span").css("color", "#000");
 
-	$("#btn-ok").css({
-		"display": "none"
-	});
-	$("#newSearchButton").css({
-		"display": "none"
-	});
-	$("#chartButton").css({
-		"display": "none"
-	});
-	$(".optionalClose").css({
-		"display": "none"
-	});
-});	
+	// Open the modal 
+		modal.css({
+			"display": "block"
+		});
 
-// END PAGE LOAD 
+		$('select').material_select();
 
-// START LISTENERS 
+		$("#btn-ok").css({
+			"display": "none"
+		});
+		$("#newSearchButton").css({
+			"display": "none"
+		});
+		$("#chartButton").css({
+			"display": "none"
+		});
+		$(".optionalClose").css({
+			"display": "none"
+		});
+	});	
+	
+// END PAGE LOAD ====================================
 
-	// Listening to Modal "X" to close modal
+// START LISTENERS ====================================
+	
+	// Listening to Modal "X" to close modal	
 	$(".optionalClose").on("click", function (e) {
 		modal.css({
 			"display": "none"
@@ -515,7 +435,7 @@ $( document ).ready(function() {
 			"display": "none"
 		});
 	});
-
+	
 	// Listening to button on page to launch chart modal
 	$("#chartButton").on("click", function (e) {
 		chartModal.css({
@@ -531,7 +451,7 @@ $( document ).ready(function() {
 
 	});
 
-	// Listening to button on page to relaunch search modal with heading text removed and fields reset.
+	// Listening to button on page to relaunch search modal with heading text removed and fields reset.	
 	$("#newSearchButton").on("click", function (e) {
 		modal.css({
 			"display": "block"
@@ -539,7 +459,7 @@ $( document ).ready(function() {
 		$(".optionalClose").css({
 			"display": "block"
 		});
-		// reset fields in modal
+		//reset boxes
 		$("#searchTopic").val("");
 		$("#ageBox").val("");
 
@@ -548,7 +468,7 @@ $( document ).ready(function() {
 		$("select").material_select();
 	});
 
-	// Listening to "OK" notice button on modal when no results are returned or no fields have been filled in on the initial search modal.  The fields are reset and displayed so the user can try a new search.
+	// Listening to "OK" notice button on modal when no results are returned or no fields have been filled in on the initial search modal.  The fields are reset and displayed so the user can try a new search.	
 	$("#btn-ok").on("click", function (e) {
 		$("#searchTopic").show();
 		$("#sourceBar").material_select();
@@ -561,61 +481,51 @@ $( document ).ready(function() {
 			"display": "none"
 		});
 		$("#userMsg").empty();
+
 		//reset boxes
 		$("#searchTopic").val("");
 		$("#ageBox").val("");
+
 		$("form input").val("");
 		$("select").prop('selectedIndex', 0);
 		$("select").material_select();
+
 	});
 
-	$("#showNews").on("click", function (e) {
-		e.preventDefault();
-		if($("#searchTopic").val()!="" && $("#sourceBar option:selected").val()!= "selectNews"){     
-			newsSubject = $("#searchTopic").val().trim();
-			age = $("#ageBox").val().trim();
-			gender = $("#genderBox option:selected").val();
-			console.log(gender);
-			var dateAdded=moment().format("YYYY-MM-DD");
-			if(age==""){
-			   age=0;
-		   }else if(parseInt(age) > 1 || parseInt(age) < 100){
-			   age=age;
-		   }else{
-			   age=-1;
-		   }
-		   if(age>=0){
-			database.ref().push({
-			newsSubject: newsSubject,
-			newsSource1: newsSource1,
-			age:age,
-			gender: gender,
-			dateAdded: dateAdded
-			  })
+$("#showNews").on("click", function (e) {
+    e.preventDefault();
+    if($("#searchTopic").val()!="" && $("#sourceBar option:selected").val()!= "selectNews"){     
+        newsSubject = $("#searchTopic").val().trim();
+        age = $("#ageBox").val().trim();
+        gender = $("#genderBox option:selected").val();
+//        console.log(gender);
+        var dateAdded=moment().format("YYYY-MM-DD");
 
-				modal.css({
-					"display": "none"
-				});
-				pairFind();
+        if(age==""){
+           age=0;
+       }else if(parseInt(age) > 1 || parseInt(age) < 100){
+           age=age;
 
-			}else {
-				//console.log("Please Enter Valid Age");
-				$("#searchTopic").hide();
-				$("#sourceBar").material_select('destroy');
-				$("#ageBox").hide();
-				$("#genderBox").material_select('destroy');
-				$("#showNews").css({
-					"display": "none"
-				});
+       }else{
+           age=-1;
+       }
 
-				$("#btn-ok").css({
-					"display": "block"
-				});
-				$("#userMsg").empty().append("Please Enter Valid Age in Numbers");
+       if(age>=0){
+    	database.ref().push({
+	    newsSubject: newsSubject,
+	    newsSource1: newsSource1,
+	    age:age,
+	    gender: gender,
+	    dateAdded: dateAdded
+	      })
 
-			}
-		}else {
-			// console.log("Please enter required values");
+	    	modal.css({
+				"display": "none"
+			});
+			pairFind();
+
+    	}else {
+			//console.log("Please Enter Valid Age");
 			$("#searchTopic").hide();
 			$("#sourceBar").material_select('destroy');
 			$("#ageBox").hide();
@@ -623,29 +533,39 @@ $( document ).ready(function() {
 			$("#showNews").css({
 				"display": "none"
 			});
+
 			$("#btn-ok").css({
 				"display": "block"
 			});
-			$("#userMsg").empty().append("Please Enter required values");
+			$("#userMsg").empty().append("Please Enter Valid Age in Numbers");
+
 		}
+	}else {
+		// console.log("Please enter required values");
+		$("#searchTopic").hide();
+		$("#sourceBar").material_select('destroy');
+		$("#ageBox").hide();
+		$("#genderBox").material_select('destroy');
+		$("#showNews").css({
+			"display": "none"
+		});
+		$("#btn-ok").css({
+			"display": "block"
+		});
+		$("#userMsg").empty().append("Please Enter required values");
+	}
 
-	});
+});
 
-	$(".leftArticle").on("click",".toggle", function() {
-		console.log("click");
-		$(".flip-containerL").toggleClass("hover");
-	})
+$(".leftArticle").on("click",".toggle", function() {
+//	console.log("click");
+    $(".flip-containerL").toggleClass("hover");
+})
 
-	$(".rightArticle").on("click",".toggle", function() {
-		console.log("click");
-		$(".flip-containerR").toggleClass("hover");
-	})
+$(".rightArticle").on("click",".toggle", function() {
+//	console.log("click");
+    $(".flip-containerR").toggleClass("hover");
+})
 
-/* END LISTENERS */	
-
-/* START FUNCTION CALLS */
-
-	chart.render();
-
-// END FUNCTION CALLS
-// END FILE
+// END LISTENERS ====================================
+// END FILE ====================================
