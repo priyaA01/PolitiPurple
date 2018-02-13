@@ -173,6 +173,7 @@ input, select{
     overflow: auto;
 	padding: 5px 24px 24px 24px;
     border-radius: 0 0 2px 2px;
+	line-height: 25px !important;
 }
 
 .card-text{
@@ -180,6 +181,7 @@ input, select{
 }
 
 .card-title{
+	line-height: 25px !important;
     font-size: 18px;
     text-align: left;
     height: 64px;
@@ -187,7 +189,8 @@ input, select{
 }
 
 .card-title a {
-   color: black;
+	line-height: 25px !important;
+	color: black;
 }
 
 .card-text, .secondLine{
