@@ -15,7 +15,8 @@ var database=firebase.database();
 // GLOGAL VARIABLES
 
 var apiKey = "52d1c20852064e27ad9777ae8ab088d7";
-var apiKeyFB = "4d9c7a74-a2a5-497c-8c59-7dd2f5113ce3";
+var apiKeyFB = "0a913679-6152-489a-a67c-6a70aaa1cb65"; // Priya's key
+	//Mark's key: "4d9c7a74-a2a5-497c-8c59-7dd2f5113ce3";
 var newsSubject = "";
 var newsSource1 = "";
 var newsSource2 = "";
@@ -90,11 +91,8 @@ chart.render();
 // START FUNCTIONS ====================================	
 	
 function pairFind() {
-
 	newsSource1 = $("#sourceBar option:selected").val();
-
 	//adding left and right
-
 	for (var i = 0, j = 0; i < pair.length; i++) {
 		if (newsSourcePair[pair[i]][j] == newsSource1) {
 			newsSource2 = newsSourcePair[pair[i]][j + 1];
@@ -108,11 +106,33 @@ function pairFind() {
 	}
 }	
 
-// START COMBINED Function
+// newsFrontBuilder - this function takes the information from the apis and builds the front portion of the left and right cards with the top articles for each news source (based on Facebook Likes).
 
-function newsBuilder(response, back, count, articleDiv) {
-	//different layout for next articles
+function newsFrontBuilder(results, front, articleDiv) {
+	if(results != "") {
+		console.log("news title 1  "  + newsTitle1);
+		console.log("Likes: " + results[0].thread.social.facebook.likes);
+		var likeDiv=$("<div>");
+		likeDiv.addClass("likeDiv");
+		likeDiv.append("<p><i class='far fa-thumbs-up'></i>" + " " + results[0].thread.social.facebook.likes+ " " + "liked this</p>");
+		front.append(likeDiv);
+		//front.append("</p><button class='toggle'>See Other News Stories</button>");
+		articleDiv.prepend(front);
+	}
+	else {
+		console.log("content not found");
+		var likeDiv=$("<div>");
+		likeDiv.addClass("likeDiv");
+		likeDiv.append("<p>Likes not Available</p>");
+		front.append(likeDiv);
+		//front.append("</p><button class='toggle'>See Other News Stories</button>");
+		articleDiv.prepend(front);
+	}
+}
 
+// newsBackBuilder - this function takes the information from the apis and builds the back portion of the left and right cards with the top 5 articles for each news source (based on Facebook Likes).
+
+function newsBackBuilder(response, back, count, articleDiv) {
 	for (var i = 1; i < 10; i++) {
 		if (response.articles[0].title != response.articles[i].title) {
 
@@ -132,27 +152,16 @@ function newsBuilder(response, back, count, articleDiv) {
 		}
 	}
 }
-
-
-// END COMBINED Function
-
+// queryAPI: Here is where the ajax calls to the apis live and  where they call the functions above at various points to build the page with the information returned by the apis. 
 function queryAPI(newsSource1, newsSource2) {
 	var from = moment().subtract(1, "months").format("YYYY-MM-DD");
 	var to = moment().format("YYYY-MM-DD");
 	var count=1;
 
-//	console.log(from);
-//	console.log(to);
-//	console.log(newsSubject)
-//	console.log("news Source 1   " + newsSource1);
-//	console.log("news source 2   " + newsSource2);
-
 	$(article1Div).html("");
     $(article2Div).html("");
-
 	$(".leftArticle").show();
 	$(".rightArticle").show();
-
 	$("#newSearchButton").css({
 		"display": "block"
 	});
@@ -179,73 +188,35 @@ function queryAPI(newsSource1, newsSource2) {
 		url: queryURL1,
 		method: "GET"
 	}).then(function (response) {
-
 		newsTitle1= response.articles[0].title;
-//		console.log(lean);	
-//		console.log(" Response name  " + response.articles[0].source.name);
-//		console.log(" Response title  " + response.articles[0].title);
-//		console.log(" Response  description  " + response.articles[0].description);
-//		console.log(" Response  url  " + response.articles[0].url);
-//		console.log(" Response  imageurl  " + response.articles[0].urlToImage);
-//		console.log(" Response  date  " + response.articles[0].publishedAt);
-
-
 		//this will append an left source to the left side and vice versa
-
 		var pic= $("<img>");
 		pic.addClass("card-image");
 		var lowhalf=$("<div>");
 		lowhalf.addClass("card-content");
 		pic.attr({"src": response.articles[0].urlToImage,"alt":"News Picture"});
 		front1.html(pic);
-		lowhalf.append("<h3 class='card-title articleText'><a href="+response.articles[0].url+" "+
-			"target='_blank'>"+response.articles[0].title+
-			"</a></h3><h4 class='secondLine'> Published by"+" "+"<span id='sourceTag'>"+response.articles[0].source.name+"</span>"+
-			" "+"on"+" "+moment(response.articles[0].publishedAt).format("MM-DD-YYYY")+
-			"</h4><p class='card-text'>"+response.articles[0].description+"<p class='card-likes'>78,999&nbsp;<i class='far fa-thumbs-up'></i> liked this</p>" +
-			"</p><button class='btn toggle'>See Other News Stories</button>");
+		lowhalf.append("<h3 class='card-title articleText'><a href=" + response.articles[0].url + " " + "target='_blank'>"+response.articles[0].title + "</a></h3><h4 class='secondLine'> Published by" + " " + "<span id='sourceTag'>" + response.articles[0].source.name + "</span>" + " " + "on" + " " + moment(response.articles[0].publishedAt).format("MM-DD-YYYY") + "</h4><p class='card-text'>"+response.articles[0].description + "</p><button class='btn toggle'>See Other News Stories</button>");
 		front1.append(lowhalf);
 		article1Div.prepend(front1);
+			
+		newsBackBuilder(response, back1, count, article1Div);
 
-// NEW FUNC CALL 			
-		newsBuilder(response, back1, count, article1Div);
-		
-/*-- START BLOCK COMMENT
 	 }).then(function (response){
-	 	var queryURL_FB1 = "http://webhose.io/filterWebContent?token=" + apiKeyFB + "&format=json&ts=1515290541502&sort=social.facebook.likes&q=%22" + newsTitle1 + "%22%20language%3Aenglish";
+			var queryURL_FB1 = "http://webhose.io/filterWebContent?token=" + apiKeyFB + "&format=json&ts=1515290541502&sort=social.facebook.likes&q=%22" + newsTitle1 + "%22%20language%3Aenglish";
 		
 	 		$.ajax({
-	         url: queryURL_FB1,
-	         method: "GET"
-	     }).done(function(response) {
-	 		var results = response.posts;
-	 		if(results != "")
-	 		{
-	 		console.log("news title 1  "  +newsTitle1);
-	 		console.log("Likes: " + results[0].thread.social.facebook.likes);
-	 		var likeDiv=$("<div>");
-	 			likeDiv.addClass("likeDiv");
-	 			likeDiv.append("<p><i class='far fa-thumbs-up'></i>"+" "+results[0].thread.social.facebook.likes+" "+ "liked this</p>");
-	 			front1.append(likeDiv);
-	 			front1.append("</p><button class='toggle'>See Other News Stories</button>");
-	 			article1Div.prepend(front1);
-	 			}
-	 		else
-	 		{
-	 			console.log("content not found");
-	 			var likeDiv=$("<div>");
-	 			likeDiv.addClass("likeDiv");
-	 			likeDiv.append("<p>Likes not Available</p>");
-	 			front1.append(likeDiv);
-	 			front1.append("</p><button class='toggle'>See Other News Stories</button>");
-	 			article1Div.prepend(front1);
-	 		}
+				url: queryURL_FB1,
+				method: "GET"
+			}).done(function(response) {
+				var results = response.posts;
+			
+				newsFrontBuilder(results, front1, article1Div);
+		
 	     }).fail(function (jqXHR, textStatus, errorThrown) {
 		 console.log("Error Message  " + textStatus);
 		 });
-END BLOCK COMMENT --*/
 	}).fail(function (jqXHR, textStatus, errorThrown) {
-//		console.log("Error Message  " + textStatus);
 		modal.css({
 			"display": "block"
 		});
@@ -278,72 +249,33 @@ END BLOCK COMMENT --*/
 		method: "GET"
 	}).then(function (response) {
 		newsTitle2= response.articles[0].title;
-//		console.log(" Response name  " + response.articles[0].source.name);
-//		console.log(" Response title  " + response.articles[0].title);
-//		console.log(" Response  description  " + response.articles[0].description);
-//		console.log(" Response  url  " + response.articles[0].url);
-//		console.log(" Response  imageurl  " + response.articles[0].urlToImage);
-//		console.log(" Response  date  " + response.articles[0].publishedAt);
 
 		var pic= $("<img>");
 		pic.addClass("card-image");
 		var lowhalf=$("<div>");
 		lowhalf.addClass("card-content");
 		
-
 		pic.attr({"src": response.articles[0].urlToImage,"alt":"News Picture"});
 		front2.html(pic);
 
-		lowhalf.append("<h3 class='card-title articleText'><a href="+response.articles[0].url+" "+
-			"target='_blank'>"+response.articles[0].title+
-			"</a></h3><h4 class='secondLine'> Published by"+" "+"<span id='sourceTag'>"+response.articles[0].source.name+"</span>"+
-			" "+"on"+" "+moment(response.articles[0].publishedAt).format("MM-DD-YYYY")+
-			"</h4><p class='card-text'>"+response.articles[0].description+"<p class='card-likes'>78,999&nbsp;<i class='far fa-thumbs-up'></i> liked this</p>"+
-			"</p><button class='btn toggle'>See Other News Stories</button>");
+		lowhalf.append("<h3 class='card-title articleText'><a href=" + response.articles[0].url + " " + "target='_blank'>"+response.articles[0].title + "</a></h3><h4 class='secondLine'> Published by" + " " + "<span id='sourceTag'>" + response.articles[0].source.name + "</span>" + " " + "on" + " " + moment(response.articles[0].publishedAt).format("MM-DD-YYYY") + "</h4><p class='card-text'>" +response.articles[0].description + "</p><button class='btn toggle'>See Other News Stories</button>");
 		front2.append(lowhalf);
 		article2Div.append(front2);
 		
-// NEW FUNC CALL 			
-		newsBuilder(response, back2, count, article2Div);
-					
-/*-- START BLOCK COMMENT
-	 }).then(function(response) {
+ 		newsBackBuilder(response, back2, count, article2Div);
 		
-	 	var queryURL_FB2 = "http://webhose.io/filterWebContent?token=" + apiKeyFB + "&format=json&ts=1515290541502&sort=social.facebook.likes&q=%22" + newsTitle2 + "%22%20language%3Aenglish";
+	 }).then(function(response) {
+			var queryURL_FB2 = "http://webhose.io/filterWebContent?token=" + apiKeyFB + "&format=json&ts=1515290541502&sort=social.facebook.likes&q=%22" + newsTitle2 + "%22%20language%3Aenglish";
 		
 	 		$.ajax({
 	         url: queryURL_FB2,
 	         method: "GET"
-	     }).done(function(response) {
-	 		var results = response.posts;
-	 		if(results != "")
-	 		{
-	 		console.log("news title 2  "  +newsTitle2);
-	 		console.log("Likes: " + results[0].thread.social.facebook.likes);
-	 		var likeDiv=$("<div>");
-	 			likeDiv.addClass("likeDiv");
-	 			likeDiv.append("<p><i class='far fa-thumbs-up'></i>"+" "+results[0].thread.social.facebook.likes+" "+ "liked this</p>");
-	 			front2.append(likeDiv);
-	 			front2.append("</p><button class='toggle'>See Other News Stories</button>");
-	 			article2Div.prepend(front2);
-	 			}
-	 		else
-	 		{
-	 			console.log("content not found");
-	 			var likeDiv=$("<div>");
-	 			likeDiv.addClass("likeDiv");
-	 			likeDiv.append("<p>Likes not Available</p>");
-	 			front2.append(likeDiv);
-	 			front2.append("</p><button class='toggle'>See Other News Stories</button>");
-	 			article2Div.prepend(front2);
-	 		}
-			
-	     }).fail(function (jqXHR, textStatus, errorThrown) {
-		 console.log("Error Message  " + textStatus);
+			}).done(function(response) {
+				var results = response.posts;		
+				newsFrontBuilder(results, front2, article2Div);	
+			}).fail(function (jqXHR, textStatus, errorThrown) {
 		 });
-END BLOCK COMMENT --*/
 	}).fail(function (jqXHR, textStatus, errorThrown) {
-//		console.log("Error Message  " + textStatus);
 		modal.css({
 			"display": "block"
 		});
@@ -390,7 +322,7 @@ else if (lean==="right"){
 	
 // END FUNCTIONS ====================================
 	
-// START PAGE LOAD: Upon page load create and display initial modal so the user can enter a subject, select a news source, and optionally provide their age and gender information. A notice is also created for when no results are returned or if no required fields contain data.	
+// START PAGE LOAD: Upon page load create and display initial modal so the user can enter a subject, select a news source, and optionally provide their age and gender information, which is loagged to firebase database. A notice is also created for when no results are returned or if no required fields contain data.  Behind the modal, the page builds with the current date displayed in the header.
 	
 	var datetime = null,
 			date = null;
@@ -403,15 +335,11 @@ else if (lean==="right"){
 	update();
 	
 	$(document).ready(function () {
-		// $(".dropdown-content>li>span").css("color", "#000");
-
 	// Open the modal 
 		modal.css({
 			"display": "block"
 		});
-
 		$('select').material_select();
-
 		$("#btn-ok").css({
 			"display": "none"
 		});
@@ -485,7 +413,6 @@ else if (lean==="right"){
 			"display": "none"
 		});
 		$("#userMsg").empty();
-
 		//reset boxes
 		$("#searchTopic").val("");
 		$("#ageBox").val("");
@@ -493,7 +420,6 @@ else if (lean==="right"){
 		$("form input").val("");
 		$("select").prop('selectedIndex', 0);
 		$("select").material_select();
-
 	});
 
 $("#showNews").on("click", function (e) {
@@ -502,7 +428,6 @@ $("#showNews").on("click", function (e) {
         newsSubject = $("#searchTopic").val().trim();
         age = $("#ageBox").val().trim();
         gender = $("#genderBox option:selected").val();
-//        console.log(gender);
         var dateAdded=moment().format("YYYY-MM-DD");
 
         if(age==""){
@@ -529,7 +454,6 @@ $("#showNews").on("click", function (e) {
 			pairFind();
 
     	}else {
-			//console.log("Please Enter Valid Age");
 			$("#searchTopic").hide();
 			$("#sourceBar").material_select('destroy');
 			$("#ageBox").hide();
@@ -545,7 +469,6 @@ $("#showNews").on("click", function (e) {
 
 		}
 	}else {
-		// console.log("Please enter required values");
 		$("#searchTopic").hide();
 		$("#sourceBar").material_select('destroy');
 		$("#ageBox").hide();
@@ -562,12 +485,10 @@ $("#showNews").on("click", function (e) {
 });
 
 $(".leftArticle").on("click",".toggle", function() {
-//	console.log("click");
     $(".flip-containerL").toggleClass("hover");
 })
 
 $(".rightArticle").on("click",".toggle", function() {
-//	console.log("click");
     $(".flip-containerR").toggleClass("hover");
 })
 
