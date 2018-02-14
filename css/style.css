@@ -97,7 +97,7 @@ input, select{
 .toggle{
     position:absolute;
     right:25%;
-    bottom:0;
+    bottom: 15px;
     font-size: 13px;
     line-height: 13px !important;
     margin: 5px;
@@ -171,14 +171,15 @@ input, select{
 
 .card .card-content{
     overflow: auto;
-	padding: 5px 24px 24px 24px;
+	padding: 5px 24px 14px 24px;
     border-radius: 0 0 2px 2px;
-	line-height: 25px !important;
+	line-height: 130%!important;
 }
 
 .card-text{
 	height: 50px;
 	overflow: hidden;
+	line-height: 130%!important;
 }
 
 .card-title{
