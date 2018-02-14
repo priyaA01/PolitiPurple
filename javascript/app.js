@@ -109,25 +109,21 @@ function pairFind() {
 // newsFrontBuilder - this function takes the information from the apis and builds the front portion of the left and right cards with the top articles for each news source (based on Facebook Likes).
 
 function newsFrontBuilder(results, front, articleDiv) {
+		var likeDiv=$("<div>");
+		likeDiv.addClass("likeDiv");
+	
 	if(results != "") {
 		console.log("news title 1  "  + newsTitle1);
 		console.log("Likes: " + results[0].thread.social.facebook.likes);
-		var likeDiv=$("<div>");
-		likeDiv.addClass("likeDiv");
 		likeDiv.append("<p><i class='far fa-thumbs-up'></i>" + " " + results[0].thread.social.facebook.likes+ " " + "liked this</p>");
-		front.append(likeDiv);
-		//front.append("</p><button class='toggle'>See Other News Stories</button>");
-		articleDiv.prepend(front);
 	}
 	else {
 		console.log("content not found");
-		var likeDiv=$("<div>");
-		likeDiv.addClass("likeDiv");
-		likeDiv.append("<p>Likes not Available</p>");
+		likeDiv.append("<p>Likes not Available</p>");		
+	}			
 		front.append(likeDiv);
 		//front.append("</p><button class='toggle'>See Other News Stories</button>");
 		articleDiv.prepend(front);
-	}
 }
 
 // newsBackBuilder - this function takes the information from the apis and builds the back portion of the left and right cards with the top 5 articles for each news source (based on Facebook Likes).
@@ -217,32 +213,9 @@ function queryAPI(newsSource1, newsSource2) {
 		 console.log("Error Message  " + textStatus);
 		 });
 	}).fail(function (jqXHR, textStatus, errorThrown) {
-		modal.css({
-			"display": "block"
-		});
-		$(".leftArticle").hide();
-		$(".rightArticle").hide();
-		$("#searchTopic").hide();
-		$("#sourceBar").material_select('destroy');
-		$("#ageBox").hide();
-		$("#genderBox").material_select('destroy');
-		$("#showNews").css({
-			"display": "none"
-		});
-		$("#newSearchButton").css({
-			"display": "none"
-		});
-		$("#chartButton").css({
-			"display": "none"
-		});
-		$(".optionalClose").css({
-			"display": "none"
-		});
-		$("#btn-ok").css({
-			"display": "block"
-		});
-		$("#userMsg").empty().append("No article found, try new search");
-	});
+        failNoRecord();
+
+    });
 
 	$.ajax({
 		url: queryURL2,
@@ -276,26 +249,9 @@ function queryAPI(newsSource1, newsSource2) {
 			}).fail(function (jqXHR, textStatus, errorThrown) {
 		 });
 	}).fail(function (jqXHR, textStatus, errorThrown) {
-		modal.css({
-			"display": "block"
-		});
-		$(".leftArticle").hide();
-		$(".rightArticle").hide();
-		$("#searchTopic").hide();
-		$("#sourceBar").material_select('destroy');
-		$("#ageBox").hide();
-		$("#genderBox").material_select('destroy');
-		$("#showNews").css({
-			"display": "none"
-		});
-		$("#btn-ok").css({
-			"display": "block"
-		});
-		$(".opttionalClose").css({
-			"display": "block"
-		});
-		$("#userMsg").empty().append("No article found, try new search");
-	});
+        failNoRecord();
+
+    });
 
 if(lean==="left"){    
     $(".leftArticle").append(article1Div);
@@ -319,7 +275,45 @@ else if (lean==="right"){
     $('.flip-containerR').removeClass('hover');
 }
 }	
-	
+
+function resetShowNews(){
+	$("#searchTopic").hide();
+	$("#sourceBar").material_select('destroy');
+	$("#ageBox").hide();
+	$("#genderBox").material_select('destroy');
+	$("#showNews").css({
+		"display": "none"
+	});
+
+	$("#btn-ok").css({
+		"display": "block"
+	});
+
+}
+
+function failNoRecord()
+{
+	modal.css({
+		"display": "block"
+	});
+	$(".leftArticle").hide();
+	$(".rightArticle").hide();
+	$("#searchTopic").hide();
+	$("#sourceBar").material_select('destroy');
+	$("#ageBox").hide();
+	$("#genderBox").material_select('destroy');
+	$("#showNews").css({
+		"display": "none"
+	});
+	$("#btn-ok").css({
+		"display": "block"
+	});
+	$(".optionalClose").css({
+			"display": "none"
+	});
+	$("#userMsg").empty().append("No article found, try new search");
+}	
+
 // END FUNCTIONS ====================================
 	
 // START PAGE LOAD: Upon page load create and display initial modal so the user can enter a subject, select a news source, and optionally provide their age and gender information, which is loagged to firebase database. A notice is also created for when no results are returned or if no required fields contain data.  Behind the modal, the page builds with the current date displayed in the header.
@@ -454,31 +448,14 @@ $("#showNews").on("click", function (e) {
 			pairFind();
 
     	}else {
-			$("#searchTopic").hide();
-			$("#sourceBar").material_select('destroy');
-			$("#ageBox").hide();
-			$("#genderBox").material_select('destroy');
-			$("#showNews").css({
-				"display": "none"
-			});
-
-			$("#btn-ok").css({
-				"display": "block"
-			});
+		   ///NEW FUNCTION
+			resetShowNews();
 			$("#userMsg").empty().append("Please Enter Valid Age in Numbers");
 
 		}
 	}else {
-		$("#searchTopic").hide();
-		$("#sourceBar").material_select('destroy');
-		$("#ageBox").hide();
-		$("#genderBox").material_select('destroy');
-		$("#showNews").css({
-			"display": "none"
-		});
-		$("#btn-ok").css({
-			"display": "block"
-		});
+		    ///NEW FUNCTION
+		resetShowNews();
 		$("#userMsg").empty().append("Please Enter required values");
 	}
 
