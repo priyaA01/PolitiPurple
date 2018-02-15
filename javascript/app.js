@@ -215,6 +215,7 @@ function queryAPI(newsSource1, newsSource2) {
 				var results = response.posts;
 			
 				newsFrontBuilder(results, front1, article1Div);
+				// this is a test
 		
 	     }).fail(function (jqXHR, textStatus, errorThrown) {
 		 console.log("Error Message  " + textStatus);
