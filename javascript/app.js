@@ -219,7 +219,7 @@ function queryAPI(newsSource1, newsSource2) {
 		
 	     }).fail(function (jqXHR, textStatus, errorThrown) {
 		 console.log("Error Message  " + textStatus);
-		 newsFrontBuilder("", front1, article2Div);
+		 newsFrontBuilder("", front1, article1Div);
 		 });
 	}).fail(function (jqXHR, textStatus, errorThrown) {
         failNoRecord();
