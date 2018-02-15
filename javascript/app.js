@@ -123,7 +123,7 @@ function newsFrontBuilder(results, front, articleDiv) {
 	else {
 		console.log("content not found");
 		likeDiv.append("<p>Likes not Available</p>");	
-		likeDiv.append(buttonDiv);	
+			
 	}			
 		front.append(likeDiv);
 		front.append(buttonDiv);
