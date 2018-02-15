@@ -119,7 +119,6 @@ function newsFrontBuilder(results, front, articleDiv) {
 		console.log("news title 1  "  + newsTitle1);
 		console.log("Likes: " + results[0].thread.social.facebook.likes);
 		likeDiv.append("<p><i class='far fa-thumbs-up'></i>" + " " + results[0].thread.social.facebook.likes+ " " + "liked this</p>");
-		likeDiv.append(buttonDiv);
 	}
 	else {
 		console.log("content not found");
@@ -127,6 +126,7 @@ function newsFrontBuilder(results, front, articleDiv) {
 		likeDiv.append(buttonDiv);	
 	}			
 		front.append(likeDiv);
+		front.append(buttonDiv);
 		articleDiv.prepend(front);
 }
 
@@ -206,7 +206,7 @@ function queryAPI(newsSource1, newsSource2) {
 		newsBackBuilder(response, back1, count, article1Div);
 
 	 }).then(function (response){
-			var queryURL_FB1 = "http://webhose.io/filterWebContent?token=" + apiKeyFB + "&format=json&ts=1515290541502&sort=social.facebook.likes&q=%22" + newsTitle1 + "%22%20language%3Aenglish";
+			var queryURL_FB1 = "https://webhose.io/filterWebContent?token=" + apiKeyFB + "&format=json&ts=1515290541502&sort=social.facebook.likes&q=%22" + newsTitle1 + "%22%20language%3Aenglish";
 		
 	 		$.ajax({
 				url: queryURL_FB1,
@@ -218,6 +218,7 @@ function queryAPI(newsSource1, newsSource2) {
 		
 	     }).fail(function (jqXHR, textStatus, errorThrown) {
 		 console.log("Error Message  " + textStatus);
+		 newsFrontBuilder("", front2, article2Div);
 		 });
 	}).fail(function (jqXHR, textStatus, errorThrown) {
         failNoRecord();
@@ -245,7 +246,7 @@ function queryAPI(newsSource1, newsSource2) {
  		newsBackBuilder(response, back2, count, article2Div);
 		
 	 }).then(function(response) {
-			var queryURL_FB2 = "http://webhose.io/filterWebContent?token=" + apiKeyFB + "&format=json&ts=1515290541502&sort=social.facebook.likes&q=%22" + newsTitle2 + "%22%20language%3Aenglish";
+			var queryURL_FB2 = "https://webhose.io/filterWebContent?token=" + apiKeyFB + "&format=json&ts=1515290541502&sort=social.facebook.likes&q=%22" + newsTitle2 + "%22%20language%3Aenglish";
 		
 	 		$.ajax({
 	         url: queryURL_FB2,
@@ -254,6 +255,7 @@ function queryAPI(newsSource1, newsSource2) {
 				var results = response.posts;		
 				newsFrontBuilder(results, front2, article2Div);	
 			}).fail(function (jqXHR, textStatus, errorThrown) {
+				newsFrontBuilder("", front2, article2Div);
 		 });
 	}).fail(function (jqXHR, textStatus, errorThrown) {
         failNoRecord();
@@ -262,7 +264,7 @@ function queryAPI(newsSource1, newsSource2) {
 
 if(lean==="left"){    
     $(".leftArticle").append(article1Div);
-    $(".leftArticle").css("border-right", "2px solid #301D6E");
+    stateManager.init();
     $(".buttonContainer").css("border-bottom", "1px solid #D0D0D0");
      $(".rightArticle").append(article2Div);
     lean="";
@@ -273,7 +275,7 @@ if(lean==="left"){
 else if (lean==="right"){
     article2Div.addClass("leftInfo");
     $(".leftArticle").append(article2Div);
-    $(".leftArticle").css("border-right", "2px solid #301D6E");
+    stateManager.init();
     $(".buttonContainer").css("border-bottom", "1px solid #D0D0D0");
     article1Div.addClass("rightInfo");
     $(".rightArticle").append(article1Div);
@@ -354,7 +356,39 @@ function failNoRecord()
 			"display": "none"
 		});
 	});	
+
+// media responsive border
 	
+	var stateManager = (function () {
+	var state = null;
+	var resizePage = function () {
+		if ($('body').width() < 600) {
+			if (state !== "mobile") {
+				displayMobile();
+			}
+		} else {
+			if (state !== "desktop") {
+				displayDesktop();
+			}
+		}
+	};
+	var displayMobile = function () {
+		state = "mobile";
+		$(".leftArticle").css("border-right", "0");
+	};
+	var displayDesktop = function () {
+		state = "desktop";
+		$(".leftArticle").css("border-right", "2px solid #301D6E");
+
+	};
+	return {
+		init: function () {
+			resizePage();
+			$(window).on('resize', resizePage);
+		}
+	};
+}());
+
 // END PAGE LOAD ====================================
 
 // START LISTENERS ====================================
@@ -477,4 +511,5 @@ $(".rightArticle").on("click",".toggle", function() {
 })
 
 // END LISTENERS ====================================
+
 // END FILE ====================================
