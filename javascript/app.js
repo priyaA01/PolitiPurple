@@ -111,18 +111,22 @@ function pairFind() {
 function newsFrontBuilder(results, front, articleDiv) {
 		var likeDiv=$("<div>");
 		likeDiv.addClass("likeDiv");
+		var buttonDiv=$("<div>");
+		buttonDiv.addClass("btnDiv");
+		buttonDiv.append("<button class='btn toggle frToggle'>See Other News Stories</button>");
 	
 	if(results != "") {
 		console.log("news title 1  "  + newsTitle1);
 		console.log("Likes: " + results[0].thread.social.facebook.likes);
 		likeDiv.append("<p><i class='far fa-thumbs-up'></i>" + " " + results[0].thread.social.facebook.likes+ " " + "liked this</p>");
+		likeDiv.append(buttonDiv);
 	}
 	else {
 		console.log("content not found");
-		likeDiv.append("<p>Likes not Available</p>");		
+		likeDiv.append("<p>Likes not Available</p>");	
+		likeDiv.append(buttonDiv);	
 	}			
 		front.append(likeDiv);
-		//front.append("</p><button class='toggle'>See Other News Stories</button>");
 		articleDiv.prepend(front);
 }
 
@@ -141,8 +145,11 @@ function newsBackBuilder(response, back, count, articleDiv) {
 		if(count===5)
 		{
 			count=1;
+			var buttonDiv=$("<div>");
+			buttonDiv.addClass("btnDiv");
 			back.prepend("<h2>Other Articles on Your Topic</h2>");
-			back.append("<button class='btn toggle'>Return to Top Story</button>");
+			buttonDiv.append("<button class='btn toggle bkToggle'>Return to Top Story</button>");
+			back.append(buttonDiv);
 			articleDiv.append(back);
 			break;
 		}
@@ -190,9 +197,9 @@ function queryAPI(newsSource1, newsSource2) {
 		pic.addClass("card-image");
 		var lowhalf=$("<div>");
 		lowhalf.addClass("card-content");
-		pic.attr({"src": response.articles[0].urlToImage,"alt":"News Picture"});
+		pic.attr({"src": response.articles[0].urlToImage,"alt":"Photo associated with Article Not Found"});
 		front1.html(pic);
-		lowhalf.append("<h3 class='card-title articleText'><a href=" + response.articles[0].url + " " + "target='_blank'>"+response.articles[0].title + "</a></h3><h4 class='secondLine'> Published by" + " " + "<span id='sourceTag'>" + response.articles[0].source.name + "</span>" + " " + "on" + " " + moment(response.articles[0].publishedAt).format("MM-DD-YYYY") + "</h4><p class='card-text'>"+response.articles[0].description + "</p><button class='btn toggle'>See Other News Stories</button>");
+		lowhalf.append("<h3 class='card-title articleText'><a href=" + response.articles[0].url + " " + "target='_blank'>"+response.articles[0].title + "</a></h3><h4 class='secondLine'> Published by" + " " + "<span id='sourceTag'>" + response.articles[0].source.name + "</span>" + " " + "on" + " " + moment(response.articles[0].publishedAt).format("MM-DD-YYYY") + "</h4><p class='card-text'>"+response.articles[0].description);
 		front1.append(lowhalf);
 		article1Div.prepend(front1);
 			
@@ -231,7 +238,7 @@ function queryAPI(newsSource1, newsSource2) {
 		pic.attr({"src": response.articles[0].urlToImage,"alt":"News Picture"});
 		front2.html(pic);
 
-		lowhalf.append("<h3 class='card-title articleText'><a href=" + response.articles[0].url + " " + "target='_blank'>"+response.articles[0].title + "</a></h3><h4 class='secondLine'> Published by" + " " + "<span id='sourceTag'>" + response.articles[0].source.name + "</span>" + " " + "on" + " " + moment(response.articles[0].publishedAt).format("MM-DD-YYYY") + "</h4><p class='card-text'>" +response.articles[0].description + "</p><button class='btn toggle'>See Other News Stories</button>");
+		lowhalf.append("<h3 class='card-title articleText'><a href=" + response.articles[0].url + " " + "target='_blank'>"+response.articles[0].title + "</a></h3><h4 class='secondLine'> Published by" + " " + "<span id='sourceTag'>" + response.articles[0].source.name + "</span>" + " " + "on" + " " + moment(response.articles[0].publishedAt).format("MM-DD-YYYY") + "</h4><p class='card-text'>" +response.articles[0].description);
 		front2.append(lowhalf);
 		article2Div.append(front2);
 		

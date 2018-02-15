@@ -10,13 +10,19 @@ header{
     background-color: #fff; 
     margin: 0 0 -10px 0;
     border-bottom: 4px solid #301D6E;
+    font-size: 
 }
 
 h1 { 
     font-size: 4.2rem;
     line-height: 110%;
-    margin: 5px 0 20px 0;
+    margin: 5px 5px 20px 5px;
 }
+
+img{
+        width:107px;
+        margin-top: 15px;
+    }
 
 .headerRow { 
 	margin-bottom: 0;
@@ -93,17 +99,23 @@ input, select{
    }   
 
 /* body components ========================= */
-
-.toggle{
+.btnDiv{
     position:absolute;
-    right:25%;
     bottom: 15px;
+    left:50%;
+    
+}
+.toggle{
+    position: relative;
+    left:-50%;
     font-size: 13px;
     line-height: 13px !important;
-    margin: 5px;
+    text-align: center;
     background-color: #9C90C1 !important;
 
 }
+
+
 .articleContainer{
     margin-top: 25px;
     margin-bottom: 20px;
@@ -140,7 +152,7 @@ input, select{
 
 .front, .back {
     width: 100%;
-    height: 460px;
+    height: 470px;
     
 }
 .flipper {
@@ -170,7 +182,7 @@ input, select{
 }
 
 .card .card-content{
-    overflow: auto;
+    overflow-y: auto;
 	padding: 5px 24px 14px 24px;
     border-radius: 0 0 2px 2px;
 	line-height: 130%!important;
@@ -184,17 +196,18 @@ input, select{
 
 .card-title{
 	line-height: 25px !important;
-    font-size: 18px;
+    font-size: 22px;
     text-align: left;
     height: 64px;
     margin-top: 15px;
+    overflow-y: auto;
 }
 
 .card-title a {
 	line-height: 25px !important;
 	color: black;
-	font-size: 22px;
     font-weight: 300;
+    font-size: 22px;
 }
 
 .card-text, .secondLine{
@@ -213,6 +226,7 @@ input, select{
 
 .secondLine{
     color:grey;
+    overflow-y: auto;
 }
 
 .otherArticles h3{
@@ -245,7 +259,7 @@ input, select{
 
 .chartContainer{
     display:none;                
-    height: 500px;
+    height: 600px;
     text-align: center;
 }
 
@@ -254,17 +268,23 @@ input, select{
     color: blue;
 }
 
-.chartContainer p{
+.chartInfo{
     border-top: 1px solid #9C90C1;
     margin-top: 5px;
     width: 100%;
     height: 100px;
+    overflow-y: auto;
 }
 
-.canvasjs-chart-canvas, #myChart{
+canvas,.canvasjs-chart-canvas, #myChart{
     border-radius: 5px;
     height: 400px !important;
     margin: auto;
+    width: 100% !important;
+}
+
+.canvasjs-chart-credit{
+    display:none !important;
 }
 
 /* START MODAL CSS =================== */
@@ -281,10 +301,11 @@ input, select{
 
 .modal-content-1 {
     background-color: #fefefe;
-    margin: 70px auto;
+    margin: 160px auto;
     padding: 20px;
     width: 70%;
     height: 400px;
+    overflow-y: auto;
 }
 
 /* Modal Content ========================= */
@@ -293,7 +314,7 @@ input, select{
     background-color: #fefefe;
     margin: 70px auto;
     padding: 5px;
-    width: 60%;
+    width: 60% !important;
     height: 500px;
 }
 
@@ -371,5 +392,62 @@ footer {
 .push {
   height: 50px;
 }
-/*--------------*/
+/*Media Queries*/
+
+@media only screen and (max-width:992px) and (min-width: 600px){
+    .card-title a{
+        font-size: 18px;   
+    }
+
+} 
+
+@media only screen and (max-width: 765px) and (min-width:600px){
+    .card-image{
+        width:200px;
+        height:126px;   
+    }
+    .frToggle{
+     height: 55px;
+     bottom: 30px;
+    }
+} 
+
+@media only screen and (max-width: 800px){
+    .modal-content-2 {
+    width: 90% !important;
+    }
+
+}
+
+@media only screen and (max-width: 645px){
+    .bkToggle{
+        font-size: 10px;
+    }
+}
+
+
+@media only screen and (max-width: 640px){
+    .polImg{
+        width: 50px;
+        margin-top: 40px;
+    }
+}
+
+@media only screen and (max-width: 600px){
+    #chartButton{
+        margin-top: 40px;
+    }
+
+    .polImg{
+        display: none;
+    }
+
+    .chartInfo p{
+        font-size: 12px;
+    }
+
+    
+}
+
+
 /*--------------*/

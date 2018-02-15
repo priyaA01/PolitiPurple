@@ -23,12 +23,12 @@
 						<div class="row msgRow">
 							<p id="userMsg">Search the News. Pick your Source. Let us Show You what Others are Saying</p>
 							<button type="button" class="btn" id="btn-ok">OK</button>
-							<div class="col s6">
+							<div class="col s12 m6">
 								<div class="myBox input-field">
 									<input id="searchTopic" type="text" placeholder="Search Topic (Required)">
 								</div>
 							</div>
-							<div class="input-field col s6">
+							<div class="input-field col s12 m6">
 								<select id="sourceBar">
 									<option value="selectNews" disabled selected>Select News Source (Required)</option>
 									<option value="breitbart-news">Breitbart News</option>
@@ -47,12 +47,12 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col s6">
+							<div class="col s12 m6">
 								<div class="myBox input-field">
 									<input id="ageBox" type=text placeholder="Your Age (Optional)">
 								</div>
 							</div>
-							<div class="input-field col s6">
+							<div class="input-field col s12 m6">
 								<select id="genderBox">
 									<option value="genderSelect" disabled selected>Your Gender (Optional)</option>
 									<option value="female">Female</option>
@@ -73,7 +73,9 @@
 					<div class="container chartContainer modalCont2">
 						<div class="optionalClose">&times;</div>
 						<div id="myChart"></div>
-						<p> The goal of this source pair was to offer a source of equal content level and equidistant from the neutral reporting. The pairing and chart are based on Media Bias Chart and analysis. For more information and more ranking of sources, <a href="http://www.allgeneralizationsarefalse.com/the-chart-version-3-0-what-exactly-are-we-reading/" target="_blank">continue reading here.</a></p>
+						<div class="chartInfo">
+							<p> The goal of this source pair was to offer a source of equal content level and equidistant from the neutral reporting. The pairing and chart are based on Media Bias Chart and analysis. For more information and more ranking of sources, <a href="http://www.allgeneralizationsarefalse.com/the-chart-version-3-0-what-exactly-are-we-reading/" target="_blank">continue reading here.</a></p>
+						</div>
 					</div>
 				</div>
 			</div>		
@@ -81,16 +83,16 @@
 			<header>
 				<div class="container">
 					<div class="row headerRow">
-						<div class="col s2">
-							<img src="images/donkey.png">
+						<div class="col s0 m2">
+							<img class=polImg src="images/donkey.png">
 						</div>
-						<div class="col s8">
+						<div class="col s12 m8">
 							<h1 class="display-4"><span class="red">P</span><span class="blue">o</span><span class="red">l</span><span class="blue">i</span><span class="red">t</span><span class="blue">i</span><span class="purple">Purple</span></h1>
 							<p class="lead">For every news story there's an equal and opposite news story</p>
 							<p class="lead"><span id="currentTime"></span></p>
 						</div>    
-						<div class="col s2">
-							<img src="images/elephant.png">
+						<div class="col s0 m2">
+							<img  class=polImg src="images/elephant.png ">
 						</div> 
 					</div>
 				</div>
@@ -98,10 +100,10 @@
 			<!-- PAGE BUTTONS (2): 1. New Search button launches the initial modal so a new search can be conducted. 2. Explanation button opens the chart modal. -->		
 			<div class="container buttonContainer">
 				<div class="row">
-					<div class="col s6 btnBox">
+					<div class="col s12 m6 btnBox">
 						<button type="button" class="btn" id="newSearchButton">I Want to Search a New Term</button>
 					</div>
-					<div class="col s6 btnBox">
+					<div class="col s12 m6 btnBox">
 						<button type="button" class="btn" id="chartButton">Why Am I Seeing These Sources?</button>
 					</div>
 				</div>
